@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct GameListView: View {
+    @State var viewModel = GameListViewModel(service: GameListService())
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(viewModel.gameList, id: \.id) { game in
+            Text(game.name ?? "")
+        }
+        .task {
+            await viewModel.getGameList()
+        }
     }
 }
 
