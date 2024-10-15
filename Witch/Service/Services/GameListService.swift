@@ -22,8 +22,10 @@ final class GameListService: GameListServiceProtocol {
     func getGameList() async -> Result<GameList, Network.NetworkError> {
         var request = GameListRequest()
         let queryBuilder = QueryBuilder()
+        queryBuilder.limit = 35
         let query = queryBuilder
-            .addFields(["id", "name", "cover", "url", "storyline", "summary"])
+            .addFields([.id, .name, .cover, .url, .summary, .storyline])
+            .addCondition(field: .cover, operator: .notEqual, value: "null")
                    .build()
         request.parameters = query
         

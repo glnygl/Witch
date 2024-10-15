@@ -7,6 +7,10 @@
 
 import Network
 
+enum URLPath: String {
+    case gameList = "games"
+}
+
 extension URLRequestable {
     
     public var baseURL: String {
@@ -19,7 +23,7 @@ extension URLRequestable {
             "Authorization" : "Bearer iawmqtbgk5h47jjglcn4v7sofkue9v"
         ]
     }
-    public var parameters: Codable? {
+    public var parameters: String? {
         nil
     }
 }

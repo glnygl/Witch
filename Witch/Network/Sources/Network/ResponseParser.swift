@@ -11,7 +11,7 @@ protocol ResponseParserProtocol {
     func parseResponse<T: Decodable>(data: Data, responseType: T.Type) -> Result<T, NetworkError>
 }
 
-class ResponseParser : ResponseParserProtocol {
+final class ResponseParser : ResponseParserProtocol {
      func parseResponse<T: Decodable>(data: Data, responseType: T.Type) -> Result<T, NetworkError> {
         let decoder = JSONDecoder()
         do {

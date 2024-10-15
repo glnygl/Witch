@@ -11,7 +11,7 @@ struct GameListRequest: URLRequestable {
     
     var method: HTTPMethod = .post
     var path: String = URLPath.gameList.rawValue
-    var parameters: Codable?
+    var parameters: String?
     
 }
 

@@ -19,6 +19,10 @@ final class GameListViewModel: GameListViewModelProtocol {
     
     let service: GameListServiceProtocol
     
+    var showLoading: Bool {
+        gameList.isEmpty
+    }
+    
     init(service: GameListServiceProtocol) {
         self.service = service
     }

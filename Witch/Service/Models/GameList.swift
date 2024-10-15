@@ -10,8 +10,13 @@ typealias GameList = [Game]
 struct Game: Codable {
     let id: Int?
     let name: String?
-    let cover: Int?
+    let cover: Cover?
     let url: String?
     let storyline: String?
     let summary: String?
+}
+
+struct Cover: Codable {
+    let id: Int?
+    let url: String?
 }

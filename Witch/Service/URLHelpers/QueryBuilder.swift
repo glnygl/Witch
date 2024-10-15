@@ -4,24 +4,50 @@
 //
 //  Created by Glny Gl on 15/10/2024.
 //
+enum QueryFields: String {
+    case id
+    case name
+    case url
+    case cover = "cover.url"
+    case storyline
+    case summary
+}
 
-class QueryBuilder {
-    private var fields: [String] = []
-    private var conditions: [String] = []
+struct Condition {
+    let field: QueryFields
+    let `operator`: ConditionOperator
+    let value: String
+
+    func build() -> String {
+        return "\(field.rawValue) \(`operator`.rawValue) \(value)"
+    }
+}
+
+enum ConditionOperator: String {
+    case equal = "="
+    case notEqual = "!="
+}
+
+final class QueryBuilder {
+    private var fields: [QueryFields] = []
+    private var conditions: [Condition] = []
+    var limit: Int?
     
-    func addField(_ field: String) -> QueryBuilder {
+    
+    func addField(_ field: QueryFields) -> QueryBuilder {
         fields.append(field)
         return self
     }
     
-    func addFields(_ fields: [String]) -> QueryBuilder {
+    func addFields(_ fields: [QueryFields]) -> QueryBuilder {
         for field in fields {
             self.fields.append(field)
         }
         return self
     }
     
-    func addCondition(_ condition: String) -> QueryBuilder {
+    func addCondition(field: QueryFields, operator: ConditionOperator, value: String) -> QueryBuilder {
+        let condition = Condition(field: field, operator: `operator`, value: value)
         conditions.append(condition)
         return self
     }
@@ -30,11 +56,17 @@ class QueryBuilder {
         var query = ""
         
         if !fields.isEmpty {
-            query += "\nfields " + fields.joined(separator: ",") + ";"
+            let fieldStrings = fields.map { $0.rawValue }
+            query += "\nfields " + fieldStrings.joined(separator: ",") + ";"
         }
         
         if !conditions.isEmpty {
-            query += "\nwhere " + conditions.joined(separator: " and ") + ";"
+            let conditionStrings = conditions.map { $0.build() }
+            query += "\nwhere " + conditionStrings.joined(separator: " and ") + ";"
+        }
+        
+        if let limit = limit {
+            query += "\nlimit" + "\(limit)" + ";"
         }
         
         return query
