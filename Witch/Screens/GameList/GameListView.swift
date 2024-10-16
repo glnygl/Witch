@@ -18,15 +18,25 @@ struct GameListView: View {
                 List {
                     ForEach(viewModel.gameList, id: \.id) { game in
                         GameListItemView(game: game)
-                            .background(.purple.opacity(0.4))
+                            .background(
+                                LinearGradient(colors: [.deeppurple, .bluep, .softlilac, .pastelpurple ], startPoint: .bottomLeading, endPoint: .topTrailing).opacity(0.5)
+                            )
                             .cornerRadius(20)
                             .frame(height: 160)
+                            .navigationLink {
+                                GameDetailView(game: game)
+                                    .removeNavigationBackButtonTitle()
+                            }
                     }
-                    .listRowSeparator(.hidden)
+                    .plainList()
                     .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
+                .refreshable {
+                    //Todo 
+                }
+                .navigationTitle("Games")
             }
         }
         .task {

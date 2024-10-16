@@ -23,7 +23,9 @@ struct GameListItemView: View {
                               .frame(width: 120)
                       },
                       placeholder: {
-                          ProgressView()
+                          Rectangle()
+                              .fill(.gray.opacity(0.4))
+                              .frame(width: 120)
                       }
                   )
             }
