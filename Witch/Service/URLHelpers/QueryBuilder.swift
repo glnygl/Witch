@@ -62,7 +62,7 @@ final class QueryBuilder {
         
         if !conditions.isEmpty {
             let conditionStrings = conditions.map { $0.build() }
-            query += "\nwhere " + conditionStrings.joined(separator: " and ") + ";"
+            query += "\nwhere " + conditionStrings.joined(separator: "&") + ";"
         }
         
         if let limit = limit {

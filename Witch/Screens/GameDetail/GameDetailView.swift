@@ -10,6 +10,7 @@ import SwiftUI
 struct GameDetailView: View {
     
     var game: Game
+    @State private var showMore = false
     
     var body: some View {
         ScrollView {
@@ -17,24 +18,38 @@ struct GameDetailView: View {
                 if let url = game.cover?.url {
                     AsyncImage(
                         url: GameScreens.detail.urlString(string: url),
-                          content: { image in
-                              image.resizable()
-                                  .frame(height: 400)
-                          },
-                          placeholder: {
-                              Rectangle()
-                                  .fill(.gray.opacity(0.4))
-                                  .frame(width: 120)
-                          }
-                      )
-                    .clipShape(
-                        .rect(cornerRadii: RectangleCornerRadii(bottomLeading: 40, bottomTrailing: 40)))
+                        content: { image in
+                            image.resizable()
+                                .frame(height: 400)
+                        },
+                        placeholder: {
+                            Rectangle()
+                                .fill(.gray.opacity(0.4))
+                                .frame(width: 120)
+                        }
+                    )
+                    .cornerRadius(40)
+                }
+                Text(game.name ?? "")
+                    .fontWeight(.bold)
+                
+                if let storyline = game.storyline {
+                    Group {
+                        Text("\(showMore ? storyline : String(storyline.prefix(200)))")
+                        +
+                        Text(showMore || (storyline.count < 200) ? "" : " more")
+                            .foregroundStyle(.accent)
+                        
+                    }
+                    .font(.subheadline)
+                    .onTapGesture {
+                        withAnimation {
+                            showMore.toggle()
+                        }
+                    }
                 }
             }
         }
-        .background(
-            LinearGradient(colors: [.deeppurple, .bluep, .softlilac, .pastelpurple], startPoint: .bottomLeading, endPoint: .topTrailing).opacity(0.4)
-        )
-        .ignoresSafeArea()
+        .padding()
     }
 }
