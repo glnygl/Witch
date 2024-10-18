@@ -15,9 +15,9 @@ struct GameDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                if let url = game.cover?.url {
+                if let urlString = game.cover?.url {
                     AsyncImage(
-                        url: GameScreens.detail.urlString(string: url),
+                        url: GameScreens.detail.url(string: urlString),
                         content: { image in
                             image.resizable()
                                 .frame(height: 400)

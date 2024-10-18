@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct LoadingView: View {
+    
+    var text: String
+    
+    init(text: String) {
+        self.text = text
+    }
+    
     var body: some View {
         ZStack {
-            ProgressView("Loading...")
+            ProgressView(text)
                 .font(.headline)
                 .tint(.gray)
                 .multilineTextAlignment(.center)
@@ -21,5 +28,5 @@ struct LoadingView: View {
 }
 
 #Preview {
-    LoadingView()
+    LoadingView(text: "Loading...")
 }

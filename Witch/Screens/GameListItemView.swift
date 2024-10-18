@@ -13,9 +13,9 @@ struct GameListItemView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            if let url = game?.cover?.url {
+            if let urlString = game?.cover?.url {
                 AsyncImage(
-                      url: GameScreens.list.urlString(string: url),
+                      url: GameScreens.list.url(string: urlString),
                       content: { image in
                           image.resizable()
                               .cornerRadius(8)

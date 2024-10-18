@@ -20,8 +20,18 @@ enum GameScreens {
         }
     }
     
-    func urlString(string: String) -> URL? {
-        return URL(string: "https:\(string.replacingOccurrences(of: "t_thumb", with: "t_\(self.imageSize)"))")
+    func url(string: String) -> URL? {
+        
+        let urlString = "\(string.replacingOccurrences(of: "t_thumb", with: "t_\(self.imageSize)"))"
+        
+        var urlComponents = URLComponents(string: urlString)
+        
+        if urlComponents?.scheme == nil {
+            urlComponents?.scheme = "https"
+        }
+        
+        return urlComponents?.url
+        
     }
 }
 

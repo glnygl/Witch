@@ -9,6 +9,10 @@ import SwiftUI
 
 extension View {
     
+    func onViewDidLoad(perform action: (() -> Void)? = nil) -> some View {
+        self.modifier(ViewDidLoadModifier(action: action))
+    }
+    
     func navigationLink<Destination: View>(_ destination: @escaping () -> Destination) -> some View {
         modifier(NavigationLinkModifier(destination: destination))
     }

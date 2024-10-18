@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct WitchApp: App {
-
     var body: some Scene {
         WindowGroup {
             GameListView()

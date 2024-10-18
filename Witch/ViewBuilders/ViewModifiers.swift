@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct ViewDidLoadModifier: ViewModifier {
+    @State private var viewDidLoad = false
+    let action: (() -> Void)?
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                if viewDidLoad == false {
+                    viewDidLoad = true
+                    action?()
+                }
+            }
+    }
+}
+
 struct NavigationLinkModifier<Destination: View>: ViewModifier {
     
     @ViewBuilder var destination: () -> Destination
@@ -49,6 +64,14 @@ struct NavigationBackButtonModifier: ViewModifier {
                     }
                 }
             }
+    }
+}
+
+struct EmbedInSection: ViewModifier {
+    func body(content: Content) -> some View {
+        Section {
+            content
+        }
     }
 }
 

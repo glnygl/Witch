@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct GameListView: View {
     @State var viewModel = GameListViewModel(service: GameListService())
+    @State var isRefreshing = false
     
     var body: some View {
         NavigationView {
-            if viewModel.showLoading {
-                LoadingView()
+            if viewModel.showLoading || isRefreshing {
+                LoadingView(text: isRefreshing ? "Refreshing..." : "Loading...")
             } else {
                 List {
                     ForEach(viewModel.gameList, id: \.id) { game in
                         GameListItemView(game: game)
+                            .modifier(EmbedInSection())
                             .background(
                                 LinearGradient(colors: [.deeppurple, .bluep, .softlilac, .pastelpurple ], startPoint: .bottomLeading, endPoint: .topTrailing).opacity(0.5)
                             )
@@ -34,13 +37,20 @@ struct GameListView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .refreshable {
-                    //Todo 
+                    isRefreshing.toggle()
+                    Task {
+                        try? await Task.sleep(nanoseconds: 1_000_000_000) // added 1 second non-blocking delay before refreshing data to prevent rapid refresh
+                        await viewModel.getGameData()
+                        isRefreshing.toggle()
+                    }
                 }
                 .navigationTitle("Games")
             }
         }
-        .task {
-            await viewModel.getGameList()
+        .onViewDidLoad {
+            Task {
+                await viewModel.getGameData()
+            }
         }
     }
 }
@@ -48,4 +58,3 @@ struct GameListView: View {
 #Preview {
     GameListView()
 }
-
