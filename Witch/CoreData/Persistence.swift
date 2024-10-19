@@ -56,6 +56,7 @@ final class PersistenceController: CoreDataPersistenceProtocol {
             coverData.url = game.cover?.url
             gameData.cover = coverData
             gameData.storyline = game.storyline
+            gameData.similarGameIds = game.similarGameIds
             save()
         }
     }

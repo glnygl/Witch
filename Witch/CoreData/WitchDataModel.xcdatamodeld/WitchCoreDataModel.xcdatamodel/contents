@@ -5,9 +5,10 @@
         <relationship name="cover" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameListDataModel" inverseName="cover" inverseEntity="GameListDataModel"/>
     </entity>
     <entity name="GameListDataModel" representedClassName="GameListDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="Int"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="similarGameIds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int]"/>
         <attribute name="storyline" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>

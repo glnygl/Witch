@@ -16,6 +16,12 @@ struct Game: Codable {
     let storyline: String?
     let summary: String?
     let rating: Double?
+    let similarGameIds: [Int]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, cover, url, storyline, summary, rating
+        case similarGameIds = "similar_games"
+    }
     
     init(entity: GameListDataModel) {
         self.id = Int(entity.id)
@@ -25,6 +31,7 @@ struct Game: Codable {
         self.storyline = entity.storyline
         self.summary = entity.summary
         self.rating = entity.rating
+        self.similarGameIds = entity.similarGameIds
     }
 }
 

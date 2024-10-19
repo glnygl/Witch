@@ -12,6 +12,7 @@ enum QueryFields: String {
     case storyline
     case summary
     case rating
+    case similarGameIds = "similar_games"
 }
 
 struct Condition {
@@ -58,7 +59,7 @@ final class QueryBuilder {
         
         if !fields.isEmpty {
             let fieldStrings = fields.map { $0.rawValue }
-            query += "\nfields " + fieldStrings.joined(separator: ",") + ";"
+            query += "fields " + fieldStrings.joined(separator: ",") + ";"
         }
         
         if !conditions.isEmpty {

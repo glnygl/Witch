@@ -9,6 +9,7 @@ import Network
 
 protocol GameListServiceProtocol {
     func getGameList() async -> Result<GameList, NetworkError>
+    func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> 
 }
 
 final class GameListService: GameListServiceProtocol {
@@ -24,13 +25,31 @@ final class GameListService: GameListServiceProtocol {
         let queryBuilder = QueryBuilder()
         queryBuilder.limit = 20
         let query = queryBuilder
-            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating])
+            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
             .addCondition(field: .cover, operator: .notEqual, value: "null")
             .addCondition(field: .storyline, operator: .notEqual, value: "null")
             .addCondition(field: .id, operator: .notEqual, value: "null")
-                   .build()
+            .build()
         request.parameters = query
         
         return await network.request(requestable: request,responseType: GameList.self)
     }
+    
+    
+    func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> {
+        var request = SimilarGameListRequest()
+        let idQueryString = "(\(ids.compactMap({String($0)}).joined(separator: ",")))"
+        let queryBuilder = QueryBuilder()
+        let query = queryBuilder
+            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
+            .addCondition(field: .id, operator: .equal, value: idQueryString)
+            .addCondition(field: .cover, operator: .notEqual, value: "null")
+            .addCondition(field: .storyline, operator: .notEqual, value: "null")
+            .addCondition(field: .id, operator: .notEqual, value: "null")
+            .build()
+        request.parameters = query
+        return await network.request(requestable: request,responseType: GameList.self)
+    }
+    
+    
 }

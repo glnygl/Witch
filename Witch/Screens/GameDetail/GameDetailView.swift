@@ -11,7 +11,7 @@ import CachedAsyncImage
 struct GameDetailView: View {
     
     var game: Game
-    var viewModel = GameDetailViewModel()
+    @State var viewModel = GameDetailViewModel(service: GameListService())
     
     @State private var showMore = false
     
@@ -28,22 +28,21 @@ struct GameDetailView: View {
                         placeholder: {
                             Rectangle()
                                 .fill(.gray.opacity(0.4))
-                                .frame(width: 120)
+                                .frame(width: 400, height: 400)
                         }
                     )
                     .cornerRadius(40)
                 }
                 Text(game.name ?? "")
-                    .fontWeight(.bold)
-    
+                    .font(.title)
+                    .fontWeight(.semibold)
+                
                 if let storyline = game.storyline {
-
                     VStack(alignment: .trailing, spacing: 4){
                         Text("\(showMore ? storyline : String(storyline.prefix(300)))")
-                        Text("More info ").shouldHide(showMore || (storyline.count < 300))
+                        Text("\(showMore || (storyline.count < 300) ? "Less info" : "More info")")
                             .foregroundStyle(.accent)
-                            .underline()
-                            .bold()
+                            .underline().bold()
                     }
                     .font(.subheadline)
                     .onTapGesture {
@@ -52,14 +51,26 @@ struct GameDetailView: View {
                         }
                     }
                 }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Similar Games").font(.system(size: 20)).fontWeight(.semibold)
+                    SimilarGamesView(games: viewModel.gameList)
+                }
+                .shouldHide(viewModel.gameList.isEmpty)
             }.toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("", systemImage: "link") {
                         viewModel.openURL(urlString: game.url)
                     }
+                    .shouldHide((game.url == nil))
                 }
             }
         }
+        .onViewDidLoad(perform: {
+            Task {
+                guard let ids = game.similarGameIds else { return }
+                await viewModel.fetchSimilarGameList(ids: ids)
+            }
+        })
         .padding()
     }
 }
