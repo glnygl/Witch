@@ -15,6 +15,7 @@ struct Game: Codable {
     let url: String?
     let storyline: String?
     let summary: String?
+    let rating: Double?
     
     init(entity: GameListDataModel) {
         self.id = Int(entity.id)
@@ -23,6 +24,7 @@ struct Game: Codable {
         self.url = entity.url
         self.storyline = entity.storyline
         self.summary = entity.summary
+        self.rating = entity.rating
     }
 }
 

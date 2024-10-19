@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct GameListItemView: View {
     
@@ -14,7 +15,7 @@ struct GameListItemView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             if let urlString = game?.cover?.url {
-                AsyncImage(
+                CachedAsyncImage(
                       url: GameScreens.list.url(string: urlString),
                       content: { image in
                           image.resizable()

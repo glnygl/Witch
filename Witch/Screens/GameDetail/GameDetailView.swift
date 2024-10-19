@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct GameDetailView: View {
     
@@ -18,7 +19,7 @@ struct GameDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 if let urlString = game.cover?.url {
-                    AsyncImage(
+                    CachedAsyncImage(
                         url: GameScreens.detail.url(string: urlString),
                         content: { image in
                             image.resizable()

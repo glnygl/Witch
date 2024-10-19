@@ -28,14 +28,3 @@ extension URLRequestable {
         nil
     }
 }
-
-protocol URLOpener: AnyObject {
-    func canOpenURL(_ url: URL) -> Bool
-    func open(_ url: URL)
-}
-
-extension UIApplication: URLOpener {
-    public func open(_ url: URL) {
-        open(url, options: [:], completionHandler: nil)
-    }
-}

@@ -11,6 +11,7 @@ enum QueryFields: String {
     case cover = "cover.url"
     case storyline
     case summary
+    case rating
 }
 
 struct Condition {
