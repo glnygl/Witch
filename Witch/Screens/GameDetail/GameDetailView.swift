@@ -10,15 +10,14 @@ import CachedAsyncImage
 
 struct GameDetailView: View {
     
-    var game: Game
-    @State var viewModel = GameDetailViewModel(service: GameListService())
+    @State var viewModel: GameDetailViewModel
     
     @State private var showMore = false
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                if let urlString = game.cover?.url {
+                if let urlString = viewModel.game.cover?.url {
                     CachedAsyncImage(
                         url: GameScreens.detail.url(string: urlString),
                         content: { image in
@@ -33,11 +32,18 @@ struct GameDetailView: View {
                     )
                     .cornerRadius(40)
                 }
-                Text(game.name ?? "")
+                Text(viewModel.name)
                     .font(.title)
                     .fontWeight(.semibold)
                 
-                if let storyline = game.storyline {
+                RatingView(rating: viewModel.convertRating())
+                
+                DisclosureGroup("Summary") {
+                    Text(viewModel.summary)
+                        .font(.subheadline)
+                }.shouldHide(viewModel.summary.isEmpty)
+                
+                if let storyline = viewModel.game.storyline {
                     VStack(alignment: .trailing, spacing: 4){
                         Text("\(showMore ? storyline : String(storyline.prefix(300)))")
                         Text("\(showMore || (storyline.count < 300) ? "Less info" : "More info")")
@@ -51,23 +57,25 @@ struct GameDetailView: View {
                         }
                     }
                 }
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Similar Games").font(.system(size: 20)).fontWeight(.semibold)
+                VStack(alignment: .leading) {
+                    Text("Similar Games").font(.system(size: 16))
+                        .fontWeight(.medium).underline()
+                        .foregroundStyle(.primary)
                     SimilarGamesView(games: viewModel.gameList)
                 }
                 .shouldHide(viewModel.gameList.isEmpty)
             }.toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("", systemImage: "link") {
-                        viewModel.openURL(urlString: game.url)
+                        viewModel.openURL(urlString: viewModel.url)
                     }
-                    .shouldHide((game.url == nil))
+                    .shouldHide((viewModel.url.isEmpty))
                 }
             }
         }
         .onViewDidLoad(perform: {
             Task {
-                guard let ids = game.similarGameIds else { return }
+                guard let ids = viewModel.game.similarGameIds else { return }
                 await viewModel.fetchSimilarGameList(ids: ids)
             }
         })

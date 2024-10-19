@@ -17,8 +17,6 @@ final class PersistenceController: CoreDataPersistenceProtocol {
     static let shared = PersistenceController()
     
     let container: NSPersistentContainer
-    var gameList = [GameListDataModel]()
-    
     
     init(inMemory: Bool = false) {
         
@@ -57,6 +55,7 @@ final class PersistenceController: CoreDataPersistenceProtocol {
             gameData.cover = coverData
             gameData.storyline = game.storyline
             gameData.similarGameIds = game.similarGameIds
+            gameData.rating = game.rating ?? 0.0
             save()
         }
     }
@@ -64,7 +63,7 @@ final class PersistenceController: CoreDataPersistenceProtocol {
     func fetchGameList() async -> [Game]? {
         let request: NSFetchRequest<GameListDataModel> = GameListDataModel.fetchRequest()
         do {
-            gameList = try container.viewContext.fetch(request)
+            let gameList = try container.viewContext.fetch(request)
             return gameList.map(Game.init)
         } catch {
             print(error.localizedDescription)

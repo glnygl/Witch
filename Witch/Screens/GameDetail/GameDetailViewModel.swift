@@ -14,10 +14,32 @@ final class GameDetailViewModel {
     private let service: GameListServiceProtocol
     
     var gameList: GameList = []
+    var game: Game
     
-    init(service: GameListServiceProtocol, urlOpener: URLOpener = UIApplication.shared) {
+    var name: String {
+        game.name ?? ""
+    }
+    
+    var url: String {
+        game.url ?? ""
+    }
+    
+    var coverUrl: String? {
+        game.cover?.url
+    }
+    
+    var storyline: String {
+        game.storyline ?? ""
+    }
+    
+    var summary: String {
+        game.summary ?? ""
+    }
+    
+    init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared) {
         self.service = service
         self.urlOpener = urlOpener
+        self.game = game
     }
     
     func fetchSimilarGameList(ids: [Int]) async {
@@ -39,5 +61,11 @@ final class GameDetailViewModel {
         } else {
             return
         }
+    }
+    
+    
+    func convertRating() -> Double {
+        guard let rate = game.rating else { return 0.0 }
+        return 5 * rate / 100.0
     }
 }
