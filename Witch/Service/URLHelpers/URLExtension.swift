@@ -6,6 +6,7 @@
 //
 
 import Network
+import SwiftUI
 
 enum URLPath: String {
     case gameList = "games"
@@ -28,3 +29,13 @@ extension URLRequestable {
     }
 }
 
+protocol URLOpener: AnyObject {
+    func canOpenURL(_ url: URL) -> Bool
+    func open(_ url: URL)
+}
+
+extension UIApplication: URLOpener {
+    public func open(_ url: URL) {
+        open(url, options: [:], completionHandler: nil)
+    }
+}

@@ -9,8 +9,8 @@ import SwiftUI
 import CoreData
 
 struct GameListView: View {
-    @State var viewModel = GameListViewModel(service: GameListService())
-    @State var isRefreshing = false
+    @State private var viewModel = GameListViewModel(service: GameListService())
+    @State private var isRefreshing = false
     
     var body: some View {
         NavigationView {

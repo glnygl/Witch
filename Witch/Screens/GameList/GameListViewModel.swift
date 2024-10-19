@@ -10,6 +10,7 @@ import Foundation
 
 protocol GameListViewModelProtocol {
     func fetchGameList() async -> [Game]?
+    func getGameData() async 
 }
 
 @Observable
@@ -17,8 +18,8 @@ final class GameListViewModel: GameListViewModelProtocol {
     
     var gameList: GameList = []
     
-    let service: GameListServiceProtocol
-    let persistenceController: CoreDataPersistenceProtocol
+    private let service: GameListServiceProtocol
+    private let persistenceController: CoreDataPersistenceProtocol
     
     var showLoading: Bool {
         gameList.isEmpty

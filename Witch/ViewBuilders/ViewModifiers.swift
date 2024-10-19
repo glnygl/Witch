@@ -75,3 +75,16 @@ struct EmbedInSection: ViewModifier {
     }
 }
 
+struct HiddenModifier: ViewModifier {
+    let shouldHide: Bool
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if shouldHide {
+            content.hidden()
+        } else {
+            content
+        }
+    }
+}
+

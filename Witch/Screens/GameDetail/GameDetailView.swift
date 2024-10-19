@@ -10,6 +10,8 @@ import SwiftUI
 struct GameDetailView: View {
     
     var game: Game
+    var viewModel = GameDetailViewModel()
+    
     @State private var showMore = false
     
     var body: some View {
@@ -32,20 +34,27 @@ struct GameDetailView: View {
                 }
                 Text(game.name ?? "")
                     .fontWeight(.bold)
-                
+    
                 if let storyline = game.storyline {
-                    Group {
-                        Text("\(showMore ? storyline : String(storyline.prefix(200)))")
-                        +
-                        Text(showMore || (storyline.count < 200) ? "" : " more")
+
+                    VStack(alignment: .trailing, spacing: 4){
+                        Text("\(showMore ? storyline : String(storyline.prefix(300)))")
+                        Text("More info ").shouldHide(showMore || (storyline.count < 300))
                             .foregroundStyle(.accent)
-                        
+                            .underline()
+                            .bold()
                     }
                     .font(.subheadline)
                     .onTapGesture {
                         withAnimation {
                             showMore.toggle()
                         }
+                    }
+                }
+            }.toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("", systemImage: "link") {
+                        viewModel.openURL(urlString: game.url)
                     }
                 }
             }
