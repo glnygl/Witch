@@ -33,8 +33,12 @@ enum ConditionOperator: String {
 final class QueryBuilder {
     private var fields: [QueryFields] = []
     private var conditions: [Condition] = []
-    var limit: Int?
+    private var limit: Int?
     
+    func addLimit(_ limit: Int) -> QueryBuilder {
+        self.limit = limit
+        return self
+    }
     
     func addField(_ field: QueryFields) -> QueryBuilder {
         fields.append(field)
@@ -59,12 +63,12 @@ final class QueryBuilder {
         
         if !fields.isEmpty {
             let fieldStrings = fields.map { $0.rawValue }
-            query += "fields " + fieldStrings.joined(separator: ",") + ";"
+            query += "\nfields " + fieldStrings.joined(separator: ",") + "; "
         }
         
         if !conditions.isEmpty {
             let conditionStrings = conditions.map { $0.build() }
-            query += "\nwhere " + conditionStrings.joined(separator: "&") + ";"
+            query += "\nwhere " + conditionStrings.joined(separator: "&") + "; "
         }
         
         if let limit = limit {

@@ -23,6 +23,17 @@ struct Game: Codable {
         case similarGameIds = "similar_games"
     }
     
+    init(id: Int, name: String?, cover: Cover?, url: String?, storyline: String?, summary: String?, rating: Double?, similarGameIds: [Int]?) {
+        self.id = id
+        self.name = name
+        self.cover = cover
+        self.url = url
+        self.storyline = storyline
+        self.summary = summary
+        self.rating = rating
+        self.similarGameIds = similarGameIds
+    }
+    
     init(entity: GameListDataModel) {
         self.id = Int(entity.id)
         self.name = entity.name
