@@ -12,11 +12,11 @@ final class MockURLOpener: URLOpener {
     
     var canOpenURLCalled = false
     var openURLCalled = false
-    var canOpenURLReturnValue = true
+    var canOpenURLResult = true
     
     func canOpenURL(_ url: URL) -> Bool {
         canOpenURLCalled = true
-        return canOpenURLReturnValue
+        return canOpenURLResult
     }
     
     func open(_ url: URL) {

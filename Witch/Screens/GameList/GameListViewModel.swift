@@ -27,7 +27,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     
     init(service: GameListServiceProtocol, persistenceController: CoreDataPersistenceProtocol = PersistenceController.shared) {
         self.service = service
-        self.persistenceController = PersistenceController.shared
+        self.persistenceController = persistenceController
     }
     
     func fetchGameList() async -> [Game]? {

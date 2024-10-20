@@ -27,7 +27,7 @@ final class URLOpenerTest: XCTestCase {
 
     func test_canOpenURL_true() {
         
-        mockOpener.canOpenURLReturnValue = true
+        mockOpener.canOpenURLResult = true
         let viewModel = GameDetailViewModel(service: GameListService(), game: game, urlOpener: mockOpener)
         
         viewModel.openURL(urlString: "www.google.com")
@@ -38,7 +38,7 @@ final class URLOpenerTest: XCTestCase {
     
     func test_canOpenURL_false() {
         
-        mockOpener.canOpenURLReturnValue = false
+        mockOpener.canOpenURLResult = false
         let viewModel = GameDetailViewModel(service: GameListService(), game: game, urlOpener: mockOpener)
         
         viewModel.openURL(urlString: "//")
