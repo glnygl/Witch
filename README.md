@@ -15,6 +15,10 @@
 ## API
 - IGDB (https://api-docs.igdb.com)
 
+ ## Packages
+- Network (Modularization)
+- CachedAsyncImage (SPM)
+
 ## Keywords 
 - Swift
 - SwiftUI
