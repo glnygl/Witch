@@ -17,7 +17,7 @@
 
  ## Packages
 - Network (Modularization)
-- CachedAsyncImage (SPM)
+- NukeUI (SPM)
 
 ## Keywords 
 - Swift
