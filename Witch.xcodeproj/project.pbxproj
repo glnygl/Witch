@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		291F88212CBE98BE00D427D5 /* Network in Frameworks */ = {isa = PBXBuildFile; productRef = 291F88202CBE98BE00D427D5 /* Network */; };
-		291F8B372CC418D400D427D5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 291F8B362CC418D400D427D5 /* CachedAsyncImage */; };
+		291F8CE32CCA8A2F00D427D5 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 291F8CE22CCA8A2F00D427D5 /* NukeUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291F8CE32CCA8A2F00D427D5 /* NukeUI in Frameworks */,
 				291F88212CBE98BE00D427D5 /* Network in Frameworks */,
-				291F8B372CC418D400D427D5 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +141,7 @@
 			name = Witch;
 			packageProductDependencies = (
 				291F88202CBE98BE00D427D5 /* Network */,
-				291F8B362CC418D400D427D5 /* CachedAsyncImage */,
+				291F8CE22CCA8A2F00D427D5 /* NukeUI */,
 			);
 			productName = Witch;
 			productReference = 291F87B92CBE71A800D427D5 /* Witch.app */;
@@ -227,7 +227,7 @@
 			mainGroup = 291F87B02CBE71A800D427D5;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				291F8B352CC4185800D427D5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				291F8CE12CCA8A2F00D427D5 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 291F87BA2CBE71A800D427D5 /* Products */;
@@ -595,12 +595,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		291F8B352CC4185800D427D5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+		291F8CE12CCA8A2F00D427D5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			repositoryURL = "https://github.com/kean/Nuke.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				minimumVersion = 12.8.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -610,10 +610,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Network;
 		};
-		291F8B362CC418D400D427D5 /* CachedAsyncImage */ = {
+		291F8CE22CCA8A2F00D427D5 /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 291F8B352CC4185800D427D5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
+			package = 291F8CE12CCA8A2F00D427D5 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

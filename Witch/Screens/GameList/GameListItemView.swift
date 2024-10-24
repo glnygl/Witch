@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import NukeUI
 
 struct GameListItemView: View {
     
@@ -15,20 +15,18 @@ struct GameListItemView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             if let urlString = game?.cover?.url {
-                CachedAsyncImage(
-                      url: GameScreens.list.url(string: urlString),
-                      content: { image in
-                          image.resizable()
-                              .cornerRadius(8)
-                              .aspectRatio(contentMode: .fit)
-                              .frame(width: 120)
-                      },
-                      placeholder: {
-                          Rectangle()
-                              .fill(.gray.opacity(0.4))
-                              .frame(width: 120)
-                      }
-                  )
+                LazyImage(url:  GameScreens.list.url(string: urlString)) { state in
+                    if let image = state.image {
+                        image.resizable()
+                            .cornerRadius(8)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120)
+                    } else {
+                        Rectangle()
+                            .fill(.gray.opacity(0.4))
+                            .frame(width: 120)
+                    }
+                }
             }
             VStack(alignment: .leading, spacing: 6) {
                 Text(game?.name ?? "")

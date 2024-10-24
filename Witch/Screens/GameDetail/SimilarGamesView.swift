@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import NukeUI
 
 struct SimilarGamesView: View {
     
@@ -21,20 +21,18 @@ struct SimilarGamesView: View {
                             .removeNavigationBackButtonTitle()
                     } label: {
                         if let urlString = game.cover?.url {
-                            CachedAsyncImage(
-                                  url: GameScreens.list.url(string: urlString),
-                                  content: { image in
-                                      image.resizable()
-                                          .cornerRadius(8)
-                                          .aspectRatio(contentMode: .fit)
-                                          .frame(width: 100)
-                                  },
-                                  placeholder: {
-                                      Rectangle()
-                                          .fill(.gray.opacity(0.4))
-                                          .frame(width: 100)
-                                  }
-                              )
+                            LazyImage(url: GameScreens.list.url(string: urlString)) { state in
+                                if let image = state.image {
+                                    image.resizable()
+                                        .cornerRadius(8)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 100)
+                                } else {
+                                    Rectangle()
+                                        .fill(.gray.opacity(0.4))
+                                        .frame(width: 100)
+                                }
+                            }
                         }
                     }
                 }

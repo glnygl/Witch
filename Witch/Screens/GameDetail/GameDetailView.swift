@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
+import NukeUI
 
 struct GameDetailView: View {
     
@@ -18,18 +18,16 @@ struct GameDetailView: View {
         ScrollView {
             VStack(alignment: .center, spacing: 10) {
                 if let urlString = viewModel.game.cover?.url {
-                    CachedAsyncImage(
-                        url: GameScreens.detail.url(string: urlString),
-                        content: { image in
+                    LazyImage(url:GameScreens.detail.url(string: urlString)) { state in
+                        if let image = state.image {
                             image.resizable()
                                 .frame(width: 200, height: 200)
-                        },
-                        placeholder: {
+                        } else {
                             Rectangle()
                                 .fill(.gray.opacity(0.4))
                                 .frame(width: 200, height: 200)
                         }
-                    )
+                    }
                     .cornerRadius(40)
                 }
                 Text(viewModel.name)
