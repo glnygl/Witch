@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import Foundation
 
 protocol CoreDataPersistenceProtocol {
     func saveGames(games: GameList?)

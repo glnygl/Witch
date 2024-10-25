@@ -22,7 +22,7 @@ enum GameScreens {
     
     func url(string: String) -> URL? {
         
-        let urlString = "\(string.replacingOccurrences(of: "t_thumb", with: "t_\(self.imageSize)"))"
+        let urlString = string.replacingOccurrences(of: "t_thumb", with: "t_\(imageSize)")
         
         var urlComponents = URLComponents(string: urlString)
         
@@ -31,7 +31,6 @@ enum GameScreens {
         }
         
         return urlComponents?.url
-        
     }
 }
 
