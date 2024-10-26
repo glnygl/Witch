@@ -7,7 +7,6 @@
 
 import Network
 
-@MainActor
 protocol GameListServiceProtocol {
     func getGameList() async -> Result<GameList, NetworkError>
     func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> 
@@ -49,6 +48,4 @@ final class GameListService: GameListServiceProtocol {
         request.parameters = query
         return await network.request(requestable: request,responseType: GameList.self)
     }
-    
-    
 }

@@ -42,10 +42,9 @@ final class GameDetailViewModel {
         self.game = game
     }
     
+    @MainActor
     func fetchSimilarGameList(ids: [Int]) async {
-        
         let result = await service.getSimilarGameList(ids: ids)
-        
         switch result {
         case .success(let games):
             self.gameList = games

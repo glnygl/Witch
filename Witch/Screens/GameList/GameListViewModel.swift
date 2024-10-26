@@ -30,6 +30,7 @@ final class GameListViewModel: GameListViewModelProtocol {
         self.persistenceController = persistenceController
     }
     
+    @MainActor
     func fetchGameList() async -> [Game]? {
         let result = await service.getGameList()
         switch result {
@@ -42,6 +43,7 @@ final class GameListViewModel: GameListViewModelProtocol {
         }
     }
     
+    @MainActor
     func getGameData() async {
         if let cachedData = await persistenceController.fetchGameList(), cachedData.count > 0 {
             gameList = cachedData
