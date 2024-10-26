@@ -31,9 +31,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     }
     
     func fetchGameList() async -> [Game]? {
-        
         let result = await service.getGameList()
-        
         switch result {
         case .success(let games):
             self.gameList = games
