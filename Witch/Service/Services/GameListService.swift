@@ -7,7 +7,7 @@
 
 import Network
 
-//@MainActor
+@MainActor
 protocol GameListServiceProtocol {
     func getGameList() async -> Result<GameList, NetworkError>
     func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> 
