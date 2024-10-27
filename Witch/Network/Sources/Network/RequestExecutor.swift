@@ -12,7 +12,6 @@ protocol RequestExecutorProtocol {
     func execute(_ request: URLRequest) async -> Result<RequestSuccess, Error>
 }
 
-
 final class RequestExecutor: RequestExecutorProtocol {
     
     var session: URLSession

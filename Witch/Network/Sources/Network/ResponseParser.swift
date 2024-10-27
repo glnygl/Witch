@@ -34,7 +34,7 @@ extension ResponseParser {
         case .valueNotFound:
             return "Value not found error"
         case .keyNotFound:
-            return "Key not found error key"
+            return "Key not found error"
         case .dataCorrupted:
             return "Data corrupted error"
         default:

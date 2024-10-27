@@ -11,7 +11,6 @@ public enum NetworkError: Error {
     case unknown
     case clientError
     case serverError
-    case invalidURL
     case serialization
     case noHTTPResponse
     case parse(message: String)

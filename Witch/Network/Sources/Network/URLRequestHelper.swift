@@ -15,9 +15,8 @@ struct URLRequestHelper: URLRequestHelperProtocol {
     private let jsonEncoder = JSONEncoder()
     
     func makeURLRequest(requestable: URLRequestable) throws -> URLRequest {
-        guard var url = URL(string: requestable.baseURL) else {
-            throw NetworkError.invalidURL
-        }
+        
+        var url = URL(string: requestable.baseURL)!
         
         url.appendPathComponent(requestable.path)
         

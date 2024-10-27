@@ -22,4 +22,3 @@ struct SimilarGameListRequest: URLRequestable {
     var parameters: String?
     
 }
-
