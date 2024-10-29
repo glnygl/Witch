@@ -14,8 +14,8 @@ struct RatingView: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(0..<5, id: \.self) { _ in
-                Text(Image(systemName: "star"))
-                    .foregroundColor(.yellow)
+                Image(systemName: "star")
+                    .foregroundStyle(.yellow)
                     .aspectRatio(contentMode: .fill)
             }
         }.overlay(
@@ -36,6 +36,7 @@ struct RatingView: View {
 }
 
 struct ClipShape: Shape {
+    
     let width: Double
     
     func path(in rect: CGRect) -> Path {

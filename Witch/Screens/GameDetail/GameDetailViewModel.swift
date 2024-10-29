@@ -28,8 +28,8 @@ final class GameDetailViewModel {
         game.cover?.url
     }
     
-    var storyline: String {
-        game.storyline ?? ""
+    var storyline: String? {
+        game.storyline 
     }
     
     var summary: String {
@@ -62,8 +62,7 @@ final class GameDetailViewModel {
         }
     }
     
-    
-    func convertRating() -> Double {
+    func convertStarRating() -> Double {
         guard let rate = game.rating else { return 0.0 }
         return 5 * rate / 100.0
     }

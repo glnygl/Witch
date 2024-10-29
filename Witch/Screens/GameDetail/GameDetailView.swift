@@ -17,7 +17,7 @@ struct GameDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 10) {
-                if let urlString = viewModel.game.cover?.url {
+                if let urlString = viewModel.coverUrl {
                     LazyImage(url:GameScreens.detail.url(string: urlString)) { state in
                         if let image = state.image {
                             image.resizable()
@@ -34,7 +34,7 @@ struct GameDetailView: View {
                     .font(.system(size: 24))
                     .fontWeight(.semibold)
                 
-                RatingView(rating: viewModel.convertRating())
+                RatingView(rating: viewModel.convertStarRating())
                 
                 DisclosureGroup("Summary", isExpanded: $showSummary) {
                     VStack {
@@ -47,7 +47,7 @@ struct GameDetailView: View {
                 .background(showSummary ? .accent.opacity(0.1) : .clear)
                 .shouldHide(viewModel.summary.isEmpty)
                 
-                if let storyline = viewModel.game.storyline {
+                if let storyline = viewModel.storyline {
                     VStack(alignment: .trailing, spacing: 4){
                         Text("\(showMore ? storyline : String(storyline.prefix(300)))")
                         Text("\(showMore || (storyline.count < 300) ? "Less info" : "More info")")

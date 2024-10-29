@@ -77,7 +77,7 @@ final class GameDetailViewModelTests: XCTestCase {
     
     func test_convertRating_true() {
 
-         let rating = viewModel.convertRating()
+         let rating = viewModel.convertStarRating()
          XCTAssertEqual(rating, 4.7)
      }
      
@@ -85,7 +85,7 @@ final class GameDetailViewModelTests: XCTestCase {
          
          let game = Game(id: 1, name: "Game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)
          viewModel = GameDetailViewModel(service: mockService, game: game, urlOpener: mockURLOpener)
-         let rating = viewModel.convertRating()
+         let rating = viewModel.convertStarRating()
          
          XCTAssertEqual(rating, 0.0)
      }

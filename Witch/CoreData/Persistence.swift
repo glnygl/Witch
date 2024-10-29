@@ -45,16 +45,10 @@ final class PersistenceController: CoreDataPersistenceProtocol {
         guard let games = games else { return }
         for game in games {
             let gameData = GameListDataModel(context: container.viewContext)
-            gameData.id = Int64(game.id)
-            gameData.name = game.name
-            gameData.url = game.url
-            gameData.summary = game.summary
+            gameData.setGame(game: game)
             let coverData = CoverDataModel(context: container.viewContext)
-            coverData.url = game.cover?.url
+            coverData.setCover(game: game)
             gameData.cover = coverData
-            gameData.storyline = game.storyline
-            gameData.similarGameIds = game.similarGameIds
-            gameData.rating = game.rating ?? 0.0
             save()
         }
     }
