@@ -22,12 +22,8 @@ final class RequestExecutor: RequestExecutorProtocol {
 
     func execute(_ request: URLRequest) async -> Result<RequestSuccess, Error> {
         do {
-            if #available(iOS 15.0, *) {
-                let (data, response) = try await session.data(for: request)
-                return .success(RequestSuccess(data: data, response: response))
-            } else {
-                return .failure(NetworkError.executionError)
-            }
+            let (data, response) = try await session.data(for: request)
+            return .success(RequestSuccess(data: data, response: response))
         } catch let error {
             return .failure(error)
         }
