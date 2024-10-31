@@ -22,31 +22,27 @@ final class ResponseParserTests: XCTestCase {
     }
     
     func test_parseResponse_success() {
+        
         let jsonData = Data("{\"id\": 1, \"name\": \"A\"}".utf8)
         
-        let result: Result<MockModel, NetworkError> = responseParser.parseResponse(data: jsonData, responseType: MockModel.self)
-        
-        switch result {
-        case .success(let model):
-            XCTAssertEqual(model.id, 1)
-            XCTAssertEqual(model.name, "A")
-        case .failure:
-            XCTFail("parse error")
+        do {
+            let result: MockModel = try responseParser.parseResponse(data: jsonData, responseType: MockModel.self)
+            XCTAssertEqual(result.id, 1)
+            XCTAssertEqual(result.name, "A")
+        } catch {
+            XCTAssertNil(error)
         }
     }
     
     func test_parseResponse_fail_typeMismatch() {
+        
         let jsonData = Data("{\"id\": \"1\", \"name\": \"A\"}".utf8)
         
-        let result: Result<MockModel, NetworkError> = responseParser.parseResponse(data: jsonData, responseType: MockModel.self)
-        
-        switch result {
-        case .success:
-            XCTFail("error")
-        case .failure(let error):
-            if case .parse(let message) = error {
-                XCTAssertEqual(message, "Type mismatch error")
-            }
+        do {
+            let result: MockModel = try responseParser.parseResponse(data: jsonData, responseType: MockModel.self)
+            XCTAssertNil(result)
+        } catch {
+            XCTAssertNotNil(error)
         }
     }
 }

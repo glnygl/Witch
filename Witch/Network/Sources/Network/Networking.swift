@@ -7,7 +7,7 @@
 import Foundation
 
 public protocol NetworkingProtocol {
-    func request<T: Decodable, R: URLRequestable>(requestable: R, responseType: T.Type ) async -> Result<T, NetworkError>
+    func request<T: Decodable, R: URLRequestable>(requestable: R, responseType: T.Type ) async throws -> T
 }
 
 public final class Networking {
@@ -29,45 +29,25 @@ public final class Networking {
 }
 
 extension Networking: NetworkingProtocol {
-    
-    public func request<T, R>(requestable: R,
-                              responseType: T.Type) async -> Result<T, NetworkError> where T : Decodable, R: URLRequestable {
-        do {
-            let urlRequest = try helper.makeURLRequest(requestable: requestable)
-            let result = await executor.execute(urlRequest)
-            switch result {
-            case .success(let successModel):
-                return successRequest(with: successModel, responseType: responseType)
-            case .failure(let error):
-                let error = failRequest(error: error)
-                return .failure(error)
-            }
-        } catch let networkError as NetworkError {
-            return .failure(networkError)
-        } catch {
-            let error = NetworkError.unknown
-            return .failure(error)
-        }
+    public func request<T, R>(requestable: R, responseType: T.Type) async throws -> T where T : Decodable, R : URLRequestable {
+        let urlRequest = try helper.makeURLRequest(requestable: requestable)
+        let result = try await executor.execute(urlRequest)
+        return try successRequest(with: result, responseType: responseType)
     }
 }
 
 extension Networking {
-    private func successRequest<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) ->
-    Result<T,NetworkError> {
-        let httpResponseStatus = successModel.response.responseStatus
-        switch httpResponseStatus {
-        case .success:
-            return didReceiveSuccessStatusCode(
-                with: successModel,
-                responseType: responseType
-            )
-        case .failure(let error):
-            return .failure(error)
+    private func successRequest<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws -> T {
+        do {
+            return try didReceiveSuccessStatusCode(with: successModel, responseType: responseType)
+        } catch {
+            throw failRequest(error: error)
         }
     }
     
-    private func didReceiveSuccessStatusCode<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) -> Result<T, NetworkError> {
-        let parsingResult = parser.parseResponse(data: successModel.data, responseType: responseType)
+    
+    private func didReceiveSuccessStatusCode<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws -> T {
+        let parsingResult = try parser.parseResponse(data: successModel.data, responseType: responseType)
         return parsingResult
     }
     

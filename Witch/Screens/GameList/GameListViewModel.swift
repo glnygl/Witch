@@ -9,8 +9,8 @@ import Observation
 import Foundation
 
 protocol GameListViewModelProtocol {
-    func fetchGameList() async -> [Game]?
-    func getGameData() async 
+    func fetchGameList() async throws -> [Game]?
+    func getGameData() async throws
 }
 
 @Observable
@@ -31,24 +31,24 @@ final class GameListViewModel: GameListViewModelProtocol {
     }
     
     @MainActor
-    func fetchGameList() async -> [Game]? {
-        let result = await service.getGameList()
-        switch result {
-        case .success(let games):
+    func fetchGameList() async throws -> [Game]? {
+        do {
+            let games = try await service.getGameList()
             self.gameList = games
             return games
-        case .failure(let error):
+        } catch {
             print(error.localizedDescription)
             return nil
         }
     }
     
+    
     @MainActor
-    func getGameData() async {
+    func getGameData() async throws {
         if let cachedData = await persistenceController.fetchGameList(), cachedData.count > 0 {
             gameList = cachedData
         } else {
-            let data = await fetchGameList()
+            let data = try await fetchGameList()
             persistenceController.saveGames(games: data)
         }
     }

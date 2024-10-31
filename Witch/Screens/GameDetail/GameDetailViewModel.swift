@@ -43,13 +43,12 @@ final class GameDetailViewModel {
     }
     
     @MainActor
-    func fetchSimilarGameList(ids: [Int]) async {
-        let result = await service.getSimilarGameList(ids: ids)
-        switch result {
-        case .success(let games):
-            self.gameList = games
-        case .failure(let error):
-            print(error.localizedDescription)
+    func fetchSimilarGameList(ids: [Int]) async throws {
+        do {
+            let result = try await service.getSimilarGameList(ids: ids)
+            self.gameList = result
+        } catch {
+            print(error) // todo error popup 
         }
     }
 

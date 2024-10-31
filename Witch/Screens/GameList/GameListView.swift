@@ -40,7 +40,7 @@ struct GameListView: View {
                     isRefreshing.toggle()
                     Task {
                         try? await Task.sleep(nanoseconds: 1_000_000_000) // added 1 second non-blocking delay before refreshing data to prevent rapid refresh
-                        await viewModel.getGameData()
+                        try await viewModel.getGameData()
                         isRefreshing.toggle()
                     }
                 }
@@ -49,7 +49,7 @@ struct GameListView: View {
         }
         .onViewDidLoad {
             Task {
-                await viewModel.getGameData()
+                try await viewModel.getGameData()
             }
         }
     }

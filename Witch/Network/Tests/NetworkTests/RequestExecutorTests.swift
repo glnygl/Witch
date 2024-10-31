@@ -29,34 +29,26 @@ final class RequestExecutorTests: XCTestCase {
     }
     
     func test_execute_success() async {
+        
         do {
             let urlRequest = try urlRequestHelper.makeURLRequest(requestable: mockRequest)
             requestExecutor.isExecuteSuccess = true
-            let result = await requestExecutor.execute(urlRequest)
-            switch result {
-            case .success(let response):
-                XCTAssertNotNil(response.data)
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
-            }
+            let result = try await requestExecutor.execute(urlRequest)
+            XCTAssertNotNil(result.data)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
     
     func test_execute_fail() async {
+        
         do {
             let urlRequest = try urlRequestHelper.makeURLRequest(requestable: mockRequest)
             requestExecutor.isExecuteSuccess = false
-            let result = await requestExecutor.execute(urlRequest)
-            switch result {
-            case .success(let response):
-                XCTAssertNil(response.data)
-            case .failure(let error):
-                XCTAssertNotNil(error)
-            }
+            let result = try await requestExecutor.execute(urlRequest)
+            XCTAssertNil(result.data)
         } catch {
-            XCTFail(error.localizedDescription)
+            XCTAssertNotNil(error)
         }
     }
 }

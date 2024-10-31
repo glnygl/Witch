@@ -12,11 +12,11 @@ final class MockRequestExecutor: RequestExecutorProtocol {
     var session: URLSession = .shared
     var isExecuteSuccess = true
     
-    func execute(_ request: URLRequest) async -> Result<Network.RequestSuccess, any Error> {
+    func execute(_ request: URLRequest) async throws -> RequestSuccess {
         if isExecuteSuccess {
-            return .success(RequestSuccess(data: Data(), response: HTTPURLResponse(url: URL(string: "https://api.igdb.com/v4/")!, statusCode: 200, httpVersion: nil, headerFields: nil)!))
+            return RequestSuccess(data: Data(), response: HTTPURLResponse(url: URL(string: "https://api.igdb.com/v4/")!, statusCode: 200, httpVersion: nil, headerFields: nil)!)
         } else {
-            return .failure(NSError(domain: "domain", code: 1))
+            throw NSError(domain: "domain", code: 1)
         }
     }
 }

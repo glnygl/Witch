@@ -11,12 +11,12 @@ import XCTest
 
 final class MockNetworking: NetworkingProtocol {
     
-    var resultToReturn: Result<GameList, NetworkError>?
+    var resultToReturn: GameList?
     
-    func request<T: Decodable, R: URLRequestable>(requestable: R, responseType: T.Type) async -> Result<T, NetworkError> {
-        if let resultToReturn = resultToReturn as? Result<T, NetworkError> {
+    func request<T, R>(requestable: R, responseType: T.Type) async throws -> T where T : Decodable, R : Network.URLRequestable {
+        if let resultToReturn = resultToReturn as? T {
             return resultToReturn
         }
-        return .failure(.unknown)
+        throw NetworkError.unknown
     }
 }

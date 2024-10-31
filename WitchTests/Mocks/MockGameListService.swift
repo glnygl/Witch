@@ -10,14 +10,21 @@ import XCTest
 @testable import Network
 
 class MockGameListService: GameListServiceProtocol {
-    var gameListResult: Result<GameList, NetworkError>?
-    var similarGameListResult: Result<GameList, NetworkError>?
-
-    func getGameList() async -> Result<GameList, NetworkError> {
-        return gameListResult ?? .failure(.unknown)
+    
+    var gameListResult: GameList?
+    var similarGameListResult: GameList?
+    
+    func getGameList() async throws -> Witch.GameList {
+        guard let gameListResult = gameListResult else {
+            throw NetworkError.unknown
+        }
+        return gameListResult
     }
-
-    func getSimilarGameList(ids: [Int]) async -> Result<GameList, NetworkError> {
-        return similarGameListResult ?? .failure(.unknown)
+    
+    func getSimilarGameList(ids: [Int]) async throws -> Witch.GameList {
+        guard let similarGameListResult = similarGameListResult else {
+            throw NetworkError.unknown
+        }
+        return similarGameListResult
     }
 }

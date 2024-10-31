@@ -34,20 +34,20 @@ final class GameDetailViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_fetchSimilarGameList_success() async {
+    func test_fetchSimilarGameList_success() async throws {
         
-        mockService.similarGameListResult = .success(similarGames)
-        await viewModel.fetchSimilarGameList(ids: [2])
+        mockService.similarGameListResult = similarGames
+        try await viewModel.fetchSimilarGameList(ids: [2])
         
         XCTAssertEqual(viewModel.gameList.count, 1)
         XCTAssertEqual(viewModel.gameList.first?.name, "Similar")
     }
     
     
-    func test_fetchSimilarGameList_fail() async {
+    func test_fetchSimilarGameList_fail() async throws {
         
-        mockService.similarGameListResult = .failure(.clientError)
-        await viewModel.fetchSimilarGameList(ids: [2])
+        mockService.similarGameListResult = nil
+        try await viewModel.fetchSimilarGameList(ids: [2])
         
         XCTAssertTrue(viewModel.gameList.isEmpty)
     }

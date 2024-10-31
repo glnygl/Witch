@@ -9,23 +9,18 @@ import Foundation
 
 protocol RequestExecutorProtocol {
     var session: URLSession { get }
-    func execute(_ request: URLRequest) async -> Result<RequestSuccess, Error>
+    func execute(_ request: URLRequest) async throws -> RequestSuccess
 }
 
 final class RequestExecutor: RequestExecutorProtocol {
-    
     var session: URLSession
     
     init(session: URLSession) {
         self.session = session
     }
-
-    func execute(_ request: URLRequest) async -> Result<RequestSuccess, Error> {
-        do {
-            let (data, response) = try await session.data(for: request)
-            return .success(RequestSuccess(data: data, response: response))
-        } catch let error {
-            return .failure(error)
-        }
+    
+    func execute(_ request: URLRequest) async throws -> RequestSuccess {
+        let (data, response) = try await session.data(for: request)
+        return RequestSuccess(data: data, response: response)
     }
 }

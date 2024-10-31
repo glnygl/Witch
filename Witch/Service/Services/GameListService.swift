@@ -8,8 +8,8 @@
 import Network
 
 protocol GameListServiceProtocol {
-    func getGameList() async -> Result<GameList, NetworkError>
-    func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> 
+    func getGameList() async throws -> GameList
+    func getSimilarGameList(ids: [Int]) async throws -> GameList
 }
 
 final class GameListService: GameListServiceProtocol {
@@ -20,7 +20,7 @@ final class GameListService: GameListServiceProtocol {
         self.network = network
     }
     
-    func getGameList() async -> Result<GameList, Network.NetworkError> {
+    func getGameList() async throws -> GameList {
         var request = GameListRequest()
         let queryBuilder = QueryBuilder()
         let query = queryBuilder
@@ -31,10 +31,10 @@ final class GameListService: GameListServiceProtocol {
             .addLimit(20)
             .build()
         request.parameters = query
-        return await network.request(requestable: request,responseType: GameList.self)
+        return try await network.request(requestable: request,responseType: GameList.self)
     }
     
-    func getSimilarGameList(ids: [Int]) async -> Result<GameList, Network.NetworkError> {
+    func getSimilarGameList(ids: [Int]) async throws -> GameList {
         var request = SimilarGameListRequest()
         let idQueryString = "(\(ids.compactMap({String($0)}).joined(separator: ",")))"
         let queryBuilder = QueryBuilder()
@@ -46,6 +46,7 @@ final class GameListService: GameListServiceProtocol {
             .addCondition(field: .id, operator: .notEqual, value: "null")
             .build()
         request.parameters = query
-        return await network.request(requestable: request,responseType: GameList.self)
+        return try await network.request(requestable: request,responseType: GameList.self)
     }
+
 }

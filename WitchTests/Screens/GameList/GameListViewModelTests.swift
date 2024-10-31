@@ -35,50 +35,50 @@ final class GameListViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_fetchGameList_success() async {
+    func test_fetchGameList_success() async throws {
         
-        mockService.gameListResult = .success(games)
-        let result = await viewModel.fetchGameList()
+        mockService.gameListResult = games
+        let result = try await viewModel.fetchGameList()
         
         XCTAssertEqual(result?.count, 1)
         XCTAssertEqual(result?.first?.name, "Game")
     }
     
-    func test_fetchGameList_fail() async {
+    func test_fetchGameList_fail() async throws {
         
-        mockService.gameListResult = .failure(.clientError)
-        let result = await viewModel.fetchGameList()
+        mockService.gameListResult = nil
+        let result = try await viewModel.fetchGameList()
         
         XCTAssertNil(result)
         XCTAssertTrue(viewModel.gameList.isEmpty)
     }
     
-    func test_getGameData_getFromCache() async {
+    func test_getGameData_getFromCache() async throws {
         
         mockPersistenceController.cachedGames = cachedGames
-        await viewModel.getGameData()
+        try await viewModel.getGameData()
         
         XCTAssertEqual(viewModel.gameList.count, 1)
         XCTAssertEqual(viewModel.gameList.first?.name, "Cached game")
         XCTAssertFalse(mockPersistenceController.saveCalled)
     }
     
-    func test_getGameData_saveToCache() async {
+    func test_getGameData_saveToCache() async throws {
         
-        mockService.gameListResult = .success(games)
+        mockService.gameListResult = games
         mockPersistenceController.cachedGames = nil
-        await viewModel.getGameData()
+        try await viewModel.getGameData()
         
         XCTAssertEqual(viewModel.gameList.count, 1)
         XCTAssertEqual(viewModel.gameList.first?.name, "Game")
         XCTAssertTrue(mockPersistenceController.saveCalled)
     }
     
-    func test_getGameData_saveToCache_whenFetchGamesError() async {
+    func test_getGameData_saveToCache_whenFetchGamesError() async throws {
         
-        mockService.gameListResult = .failure(.clientError)
+        mockService.gameListResult = nil
         mockPersistenceController.cachedGames = nil
-        await viewModel.getGameData()
+        try await viewModel.getGameData()
         
         XCTAssertEqual(viewModel.gameList.count, 0)
         XCTAssertTrue(mockPersistenceController.saveCalled)

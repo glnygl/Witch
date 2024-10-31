@@ -81,7 +81,7 @@ struct GameDetailView: View {
             showSummary = viewModel.summary.count < 400
             Task {
                 guard let ids = viewModel.game.similarGameIds else { return }
-                await viewModel.fetchSimilarGameList(ids: ids)
+                try await viewModel.fetchSimilarGameList(ids: ids)
             }
         })
         .padding(EdgeInsets(top: 0, leading: 12, bottom: 6, trailing: 12))
