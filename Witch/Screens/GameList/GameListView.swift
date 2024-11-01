@@ -10,7 +10,6 @@ import CoreData
 
 struct GameListView: View {
     @State var viewModel: GameListViewModel
-    @State private var isRefreshing = false
     
     init(viewModel: GameListViewModel) {
         _viewModel = State(wrappedValue: viewModel)
@@ -18,8 +17,8 @@ struct GameListView: View {
     
     var body: some View {
         NavigationView {
-            if viewModel.showLoading || isRefreshing {
-                LoadingView(text: isRefreshing ? "Refreshing..." : "Loading...")
+            if viewModel.showLoading {
+                LoadingView(text: viewModel.loadingText)
             } else {
                 List {
                     ForEach(viewModel.gameList, id: \.id) { game in
@@ -41,12 +40,12 @@ struct GameListView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .refreshable {
-                    isRefreshing.toggle()
+                    viewModel.isRefreshing.toggle()
                     Task {
                         try? await Task.sleep(nanoseconds: 1_000_000_000)
                         // added 1 second non-blocking delay before refreshing data to prevent rapid refresh
                         try await viewModel.getGameData()
-                        isRefreshing.toggle()
+                        viewModel.isRefreshing.toggle()
                     }
                 }
                 .navigationTitle("Games")

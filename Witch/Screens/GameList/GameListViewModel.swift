@@ -21,8 +21,14 @@ final class GameListViewModel: GameListViewModelProtocol {
     let service: GameListServiceProtocol
     private let persistenceController: CoreDataPersistenceProtocol
     
+    var isRefreshing = false
+    
     var showLoading: Bool {
-        gameList.isEmpty
+        gameList.isEmpty || isRefreshing
+    }
+    
+    var loadingText: String {
+        isRefreshing ? "Refreshing..." : "Loading..."
     }
     
     init(service: GameListServiceProtocol, persistenceController: CoreDataPersistenceProtocol = PersistenceController.shared) {
