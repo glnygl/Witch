@@ -16,6 +16,8 @@ final class PersistenceController: CoreDataPersistenceProtocol {
     static let shared = PersistenceController()
     
     let container: NSPersistentContainer
+    var mainContext: NSManagedObjectContext
+    var backgroundContext: NSManagedObjectContext
     
     init(inMemory: Bool = false) {
         
@@ -29,34 +31,41 @@ final class PersistenceController: CoreDataPersistenceProtocol {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        container.viewContext.automaticallyMergesChangesFromParent = true
+        mainContext = container.viewContext
+        backgroundContext = container.newBackgroundContext()
+        mainContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
     }
     
-    func save() {
+    func saveBackgroundContext() {
         do {
-            try container.viewContext.save()
+            try backgroundContext.save()
+            print("Data saved to backgroundContext")
         } catch {
-            print("Error saving to Core Data \(error.localizedDescription)")
+            print("Error saving to backgroundContext \(error.localizedDescription)")
         }
     }
-    
     
     func saveGames(games: GameList?) {
         guard let games = games else { return }
-        for game in games {
-            let gameData = GameListDataModel(context: container.viewContext)
-            gameData.setGame(game: game)
-            let coverData = CoverDataModel(context: container.viewContext)
-            coverData.setCover(game: game)
-            gameData.cover = coverData
+        backgroundContext.perform {
+            for game in games {
+                let gameData = GameListDataModel(context: self.backgroundContext)
+                gameData.setGame(game: game)
+                let coverData = CoverDataModel(context: self.backgroundContext)
+                coverData.setCover(game: game)
+                gameData.cover = coverData
+            }
+            self.saveBackgroundContext()
         }
-        save()
     }
     
     func fetchGameList() async -> [Game]? {
         let request: NSFetchRequest<GameListDataModel> = GameListDataModel.fetchRequest()
+        let sortRule = NSSortDescriptor(key: "id", ascending: true)
+        request.sortDescriptors = [sortRule]
         do {
-            let gameList = try container.viewContext.fetch(request)
+            let gameList = try mainContext.fetch(request)
             return gameList.map(Game.init)
         } catch {
             print(error.localizedDescription)
