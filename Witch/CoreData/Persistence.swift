@@ -49,8 +49,8 @@ final class PersistenceController: CoreDataPersistenceProtocol {
             let coverData = CoverDataModel(context: container.viewContext)
             coverData.setCover(game: game)
             gameData.cover = coverData
-            save()
         }
+        save()
     }
     
     func fetchGameList() async -> [Game]? {
