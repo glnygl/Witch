@@ -12,7 +12,7 @@ import CoreData
 struct WitchApp: App {
     var body: some Scene {
         WindowGroup {
-            GameListView()
+            GameListView(viewModel: GameListViewModel(service: GameListService()))
         }
     }
 }

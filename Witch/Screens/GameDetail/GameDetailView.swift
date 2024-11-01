@@ -14,6 +14,10 @@ struct GameDetailView: View {
     @State private var showSummary = false
     @State private var showMore = false
     
+    init(viewModel: GameDetailViewModel) {
+        _viewModel = State(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 10) {

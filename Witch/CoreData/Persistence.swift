@@ -37,7 +37,7 @@ final class PersistenceController: CoreDataPersistenceProtocol {
         backgroundContext.automaticallyMergesChangesFromParent = true
     }
     
-    func saveBackgroundContext() {
+    private func saveBackgroundContext() {
         do {
             try backgroundContext.save()
             print("Data saved to backgroundContext")
@@ -48,15 +48,15 @@ final class PersistenceController: CoreDataPersistenceProtocol {
     
     func saveGames(games: GameList?) {
         guard let games = games else { return }
-        backgroundContext.perform {
+        backgroundContext.performAndWait {
             for game in games {
-                let gameData = GameListDataModel(context: self.backgroundContext)
+                let gameData = GameListDataModel(context: backgroundContext)
                 gameData.setGame(game: game)
-                let coverData = CoverDataModel(context: self.backgroundContext)
+                let coverData = CoverDataModel(context: backgroundContext)
                 coverData.setCover(game: game)
                 gameData.cover = coverData
             }
-            self.saveBackgroundContext()
+            saveBackgroundContext()
         }
     }
     

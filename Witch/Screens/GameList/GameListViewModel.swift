@@ -18,7 +18,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     
     var gameList: GameList = []
     
-    private let service: GameListServiceProtocol
+    let service: GameListServiceProtocol
     private let persistenceController: CoreDataPersistenceProtocol
     
     var showLoading: Bool {

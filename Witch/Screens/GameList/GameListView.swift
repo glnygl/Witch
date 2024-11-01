@@ -9,8 +9,12 @@ import SwiftUI
 import CoreData
 
 struct GameListView: View {
-    @State private var viewModel = GameListViewModel(service: GameListService())
+    @State var viewModel: GameListViewModel
     @State private var isRefreshing = false
+    
+    init(viewModel: GameListViewModel) {
+        _viewModel = State(wrappedValue: viewModel)
+    }
     
     var body: some View {
         NavigationView {
@@ -22,12 +26,12 @@ struct GameListView: View {
                         GameListItemView(game: game)
                             .modifier(EmbedInSection())
                             .background(
-                                LinearGradient(colors: [.deeppurple, .bluep, .softlilac, .pastelpurple ], startPoint: .bottomLeading, endPoint: .topTrailing).opacity(0.5)
+                                LinearGradient(colors: [.deeppurple, .bluep, .softlilac, .pastelpurple], startPoint: .bottomLeading, endPoint: .topTrailing).opacity(0.5)
                             )
                             .cornerRadius(20)
                             .frame(height: 160)
                             .navigationLink {
-                                GameDetailView(viewModel: GameDetailViewModel(service: GameListService(), game: game))
+                                GameDetailView(viewModel: GameDetailViewModel(service: viewModel.service, game: game))
                                     .removeNavigationBackButtonTitle()
                             }
                     }
@@ -39,7 +43,8 @@ struct GameListView: View {
                 .refreshable {
                     isRefreshing.toggle()
                     Task {
-                        try? await Task.sleep(nanoseconds: 1_000_000_000) // added 1 second non-blocking delay before refreshing data to prevent rapid refresh
+                        try? await Task.sleep(nanoseconds: 1_000_000_000)
+                        // added 1 second non-blocking delay before refreshing data to prevent rapid refresh
                         try await viewModel.getGameData()
                         isRefreshing.toggle()
                     }
@@ -53,8 +58,4 @@ struct GameListView: View {
             }
         }
     }
-}
-
-#Preview {
-    GameListView()
 }
