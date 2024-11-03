@@ -7,6 +7,7 @@
 
 import Observation
 import Foundation
+import Network
 
 protocol GameListViewModelProtocol {
     func fetchGameList() async throws -> [Game]?
@@ -21,7 +22,10 @@ final class GameListViewModel: GameListViewModelProtocol {
     let service: GameListServiceProtocol
     private let persistenceController: CoreDataPersistenceProtocol
     
-    var isRefreshing = false
+    var isRefreshing: Bool = false
+    
+    var hasError: Bool = false
+    var error: NetworkError?
     
     var showLoading: Bool {
         gameList.isEmpty || isRefreshing
@@ -43,7 +47,8 @@ final class GameListViewModel: GameListViewModelProtocol {
             self.gameList = games
             return games
         } catch {
-            print(error.localizedDescription)
+            self.error = error
+            hasError = true
             return nil
         }
     }

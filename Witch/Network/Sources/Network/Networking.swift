@@ -7,7 +7,7 @@
 import Foundation
 
 public protocol NetworkingProtocol {
-    func request<T: Decodable, R: URLRequestable>(requestable: R, responseType: T.Type ) async throws -> T
+    func request<T, R>(requestable: R, responseType: T.Type) async throws (NetworkError) -> T where T : Decodable, R : URLRequestable
 }
 
 public final class Networking {
@@ -29,15 +29,23 @@ public final class Networking {
 }
 
 extension Networking: NetworkingProtocol {
-    public func request<T, R>(requestable: R, responseType: T.Type) async throws -> T where T : Decodable, R : URLRequestable {
-        let urlRequest = try helper.makeURLRequest(requestable: requestable)
-        let result = try await executor.execute(urlRequest)
-        return try successRequest(with: result, responseType: responseType)
+    public func request<T, R>(requestable: R, responseType: T.Type) async throws (NetworkError) -> T where T : Decodable, R : URLRequestable {
+        do {
+            let urlRequest = try helper.makeURLRequest(requestable: requestable)
+            let result = try await executor.execute(urlRequest)
+            return try successRequest(with: result, responseType: responseType)
+        } catch let error {
+            if let networkError = error as? NetworkError {
+                throw networkError
+            } else {
+                throw failRequest(error: error)
+            }
+        }
     }
 }
 
 extension Networking {
-    private func successRequest<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws -> T {
+    private func successRequest<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws (NetworkError) -> T {
         do {
             return try didReceiveSuccessStatusCode(with: successModel, responseType: responseType)
         } catch {
@@ -53,9 +61,8 @@ extension Networking {
     
     private func failRequest(error: Error) -> NetworkError {
         let nsError = error as NSError
-        
         if nsError.code == NSURLErrorTimedOut {
-            return .requestTimedOut
+            return .requestTimeOut
         } else if nsError.code == NSURLErrorNotConnectedToInternet {
             return .noInternetConnection
         } else if nsError.code == NSURLErrorCancelled {

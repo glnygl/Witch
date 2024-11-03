@@ -43,7 +43,7 @@ struct GameListView: View {
                     viewModel.isRefreshing.toggle()
                     Task {
                         try? await Task.sleep(nanoseconds: 2_000_000_000)
-                        // added 2 second non-blocking delay before refreshing data to prevent rapid refresh
+                        // Added 2 second non-blocking delay before refreshing data to prevent rapid refresh
                         try await viewModel.getGameData()
                         viewModel.isRefreshing.toggle()
                     }
@@ -51,10 +51,12 @@ struct GameListView: View {
                 .navigationTitle("Games")
             }
         }
+        .alert(isPresented: $viewModel.hasError, error: viewModel.error, actions: {
+            Button("Ok") { }
+        })
         .onViewDidLoad {
             Task {
                 try? await Task.sleep(nanoseconds: 2_000_000_000)
-                // added 2 second non-blocking delay before refreshing data to prevent rapid refresh
                 try await viewModel.getGameData()
             }
         }

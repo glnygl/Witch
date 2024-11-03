@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 @Observable
 final class GameDetailViewModel {
@@ -36,6 +37,9 @@ final class GameDetailViewModel {
         game.summary ?? ""
     }
     
+    var hasError: Bool = false
+    var error: NetworkError?
+    
     init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared) {
         self.service = service
         self.urlOpener = urlOpener
@@ -48,7 +52,8 @@ final class GameDetailViewModel {
             let result = try await service.getSimilarGameList(ids: ids)
             self.gameList = result
         } catch {
-            print(error) // todo error popup 
+            self.error = error
+            hasError = true
         }
     }
 

@@ -8,8 +8,8 @@
 import Network
 
 protocol GameListServiceProtocol {
-    func getGameList() async throws -> GameList
-    func getSimilarGameList(ids: [Int]) async throws -> GameList
+    func getGameList() async throws (NetworkError) -> GameList
+    func getSimilarGameList(ids: [Int]) async throws (NetworkError) -> GameList
 }
 
 final class GameListService: GameListServiceProtocol {
@@ -20,7 +20,7 @@ final class GameListService: GameListServiceProtocol {
         self.network = network
     }
     
-    func getGameList() async throws -> GameList {
+    func getGameList() async throws (NetworkError) -> GameList {
         var request = GameListRequest()
         let queryBuilder = QueryBuilder()
         let query = queryBuilder
@@ -34,7 +34,7 @@ final class GameListService: GameListServiceProtocol {
         return try await network.request(requestable: request,responseType: GameList.self)
     }
     
-    func getSimilarGameList(ids: [Int]) async throws -> GameList {
+    func getSimilarGameList(ids: [Int]) async throws (NetworkError) -> GameList {
         var request = SimilarGameListRequest()
         let idQueryString = "(\(ids.compactMap({String($0)}).joined(separator: ",")))"
         let queryBuilder = QueryBuilder()

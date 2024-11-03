@@ -11,13 +11,13 @@ public enum NetworkError: Error {
     case unknown
     case clientError
     case serverError
-    case serialization
     case noHTTPResponse
     case parse(message: String)
     case executionError
     case noInternetConnection
-    case requestTimedOut
+    case requestTimeOut
     case requestCancelled
+    case requestFailed(message: String)
 }
 
 enum URLResponseStatus {
@@ -44,6 +44,33 @@ extension URLResponse {
             return .failure(NetworkError.serverError)
         default:
             return .failure(NetworkError.unknown)
+        }
+    }
+}
+
+extension NetworkError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .unknown:
+            return "Unknown Error"
+        case .clientError:
+            return "Client Error"
+        case .serverError:
+            return "Server Error"
+        case .noHTTPResponse:
+            return "No HTTP Response"
+        case .parse (let message):
+            return "Parsing Error \(message.capitalized)"
+        case .executionError:
+            return "Execution Error"
+        case .noInternetConnection:
+            return "No Internet Connection"
+        case .requestTimeOut:
+            return "Request Time Out"
+        case .requestCancelled:
+            return "Request Canceled"
+        case .requestFailed (let message):
+            return "Request Failed \(message.capitalized)"
         }
     }
 }

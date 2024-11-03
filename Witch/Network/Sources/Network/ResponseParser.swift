@@ -8,11 +8,11 @@
 import Foundation
 
 protocol ResponseParserProtocol {
-    func parseResponse<T: Decodable>(data: Data, responseType: T.Type) throws -> T
+    func parseResponse<T: Decodable>(data: Data, responseType: T.Type) throws (NetworkError) -> T
 }
 
 final class ResponseParser : ResponseParserProtocol {
-    func parseResponse<T: Decodable>(data: Data, responseType: T.Type) throws -> T {
+    func parseResponse<T: Decodable>(data: Data, responseType: T.Type) throws (NetworkError) -> T {
         let decoder = JSONDecoder()
         do {
             let decodedModel = try decoder.decode(T.self, from: data)

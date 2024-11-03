@@ -81,6 +81,9 @@ struct GameDetailView: View {
                 }
             }
         }
+        .alert(isPresented: $viewModel.hasError, error: viewModel.error, actions: {
+            Button("Ok") { }
+        })
         .onViewDidLoad(perform: {
             showSummary = viewModel.summary.count < 400
             Task {

@@ -14,14 +14,14 @@ class MockGameListService: GameListServiceProtocol {
     var gameListResult: GameList?
     var similarGameListResult: GameList?
     
-    func getGameList() async throws -> Witch.GameList {
+    func getGameList() async throws (NetworkError) -> GameList {
         guard let gameListResult = gameListResult else {
             throw NetworkError.unknown
         }
         return gameListResult
     }
     
-    func getSimilarGameList(ids: [Int]) async throws -> Witch.GameList {
+    func getSimilarGameList(ids: [Int]) async throws (NetworkError) -> GameList {
         guard let similarGameListResult = similarGameListResult else {
             throw NetworkError.unknown
         }
