@@ -47,14 +47,14 @@ extension Networking: NetworkingProtocol {
 extension Networking {
     private func successRequest<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws (NetworkError) -> T {
         do {
-            return try didReceiveSuccessStatusCode(with: successModel, responseType: responseType)
+            return try parseResponse(with: successModel, responseType: responseType)
         } catch {
             throw failRequest(error: error)
         }
     }
     
     
-    private func didReceiveSuccessStatusCode<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws -> T {
+    private func parseResponse<T: Decodable>(with successModel: RequestSuccess, responseType: T.Type) throws (NetworkError) -> T {
         let parsingResult = try parser.parseResponse(data: successModel.data, responseType: responseType)
         return parsingResult
     }
