@@ -40,7 +40,6 @@
       }
     },
     "Similar Games" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -40,6 +40,9 @@ final class GameDetailViewModel {
     var hasError: Bool = false
     var error: NetworkError?
     
+    var showSummary = false
+    var showMore = false
+    
     init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared) {
         self.service = service
         self.urlOpener = urlOpener

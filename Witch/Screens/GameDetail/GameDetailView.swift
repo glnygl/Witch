@@ -11,8 +11,6 @@ import NukeUI
 struct GameDetailView: View {
     
     @State var viewModel: GameDetailViewModel
-    @State private var showSummary = false
-    @State private var showMore = false
     
     init(viewModel: GameDetailViewModel) {
         _viewModel = State(wrappedValue: viewModel)
@@ -40,7 +38,7 @@ struct GameDetailView: View {
                 
                 RatingView(rating: viewModel.convertStarRating())
                 
-                DisclosureGroup("Summary", isExpanded: $showSummary) {
+                DisclosureGroup("Summary", isExpanded: $viewModel.showSummary) {
                     VStack {
                         Text(viewModel.summary)
                             .font(.subheadline)
@@ -48,20 +46,20 @@ struct GameDetailView: View {
                 }
                 .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
                 
-                .background(showSummary ? .accent.opacity(0.1) : .clear)
+                .background(viewModel.showSummary ? .accent.opacity(0.1) : .clear)
                 .shouldHide(viewModel.summary.isEmpty)
                 
                 if let storyline = viewModel.storyline {
                     VStack(alignment: .trailing, spacing: 4){
-                        Text("\(showMore ? storyline : String(storyline.prefix(300)))")
-                        Text("\(showMore || (storyline.count < 300) ? "Less info" : "More info")")
+                        Text("\(viewModel.showMore ? storyline : String(storyline.prefix(300)))")
+                        Text("\(viewModel.showMore || (storyline.count < 300) ? "Less info" : "More info")")
                             .foregroundStyle(.accent)
                             .underline().bold()
                     }
                     .font(.subheadline)
                     .onTapGesture {
                         withAnimation {
-                            showMore.toggle()
+                            viewModel.showMore.toggle()
                         }
                     }
                 }
@@ -85,7 +83,7 @@ struct GameDetailView: View {
             Button("Ok") { }
         })
         .onViewDidLoad(perform: {
-            showSummary = viewModel.summary.count < 400
+            viewModel.showSummary = viewModel.summary.count < 400
             Task {
                 guard let ids = viewModel.game.similarGameIds else { return }
                 try await viewModel.fetchSimilarGameList(ids: ids)
