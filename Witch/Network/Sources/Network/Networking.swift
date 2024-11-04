@@ -7,7 +7,7 @@
 import Foundation
 
 public protocol NetworkingProtocol {
-    func request<T, R>(requestable: R, responseType: T.Type) async throws (NetworkError) -> T where T : Decodable, R : URLRequestable
+    func request<T:Decodable>(requestable: URLRequestable, responseType: T.Type) async throws (NetworkError) -> T
 }
 
 public final class Networking {
@@ -29,7 +29,7 @@ public final class Networking {
 }
 
 extension Networking: NetworkingProtocol {
-    public func request<T, R>(requestable: R, responseType: T.Type) async throws (NetworkError) -> T where T : Decodable, R : URLRequestable {
+    public func request<T:Decodable>(requestable: URLRequestable, responseType: T.Type) async throws (NetworkError) -> T {
         do {
             let urlRequest = try helper.makeURLRequest(requestable: requestable)
             let result = try await executor.execute(urlRequest)
