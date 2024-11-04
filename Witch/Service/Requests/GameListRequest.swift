@@ -22,3 +22,11 @@ struct SimilarGameListRequest: URLRequestable {
     var parameters: String?
     
 }
+
+struct GameDetailRequest: URLRequestable {
+    
+    var method: HTTPMethod = .post
+    var path: String = URLPath.gameList.rawValue
+    var parameters: String?
+    
+}

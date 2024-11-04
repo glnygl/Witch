@@ -13,6 +13,7 @@ class MockGameListService: GameListServiceProtocol {
     
     var gameListResult: GameList?
     var similarGameListResult: GameList?
+    var gameDetailResult: GameList?
     
     func getGameList() async throws (NetworkError) -> GameList {
         guard let gameListResult = gameListResult else {
@@ -26,5 +27,12 @@ class MockGameListService: GameListServiceProtocol {
             throw NetworkError.unknown
         }
         return similarGameListResult
+    }
+    
+    func getGameDetail(id: Int) async throws(NetworkError) -> GameList {
+        guard let gameDetailResult = gameDetailResult else {
+            throw NetworkError.unknown
+        }
+        return gameDetailResult
     }
 }

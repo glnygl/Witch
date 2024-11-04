@@ -10,6 +10,7 @@ import Network
 protocol GameListServiceProtocol {
     func getGameList() async throws (NetworkError) -> GameList
     func getSimilarGameList(ids: [Int]) async throws (NetworkError) -> GameList
+    func getGameDetail(id: Int) async throws (NetworkError) -> GameList
 }
 
 final class GameListService: GameListServiceProtocol {
@@ -44,6 +45,19 @@ final class GameListService: GameListServiceProtocol {
             .addCondition(field: .cover, operator: .notEqual, value: "null")
             .addCondition(field: .storyline, operator: .notEqual, value: "null")
             .addCondition(field: .id, operator: .notEqual, value: "null")
+            .build()
+        request.parameters = query
+        return try await network.request(requestable: request,responseType: GameList.self)
+    }
+    
+    func getGameDetail(id: Int) async throws (NetworkError) -> GameList {
+        var request = GameDetailRequest()
+        let queryBuilder = QueryBuilder()
+        let query = queryBuilder
+            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
+            .addCondition(field: .cover, operator: .notEqual, value: "null")
+            .addCondition(field: .storyline, operator: .notEqual, value: "null")
+            .addCondition(field: .id, operator: .equal, value: "\(id)")
             .build()
         request.parameters = query
         return try await network.request(requestable: request,responseType: GameList.self)

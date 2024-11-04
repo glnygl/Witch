@@ -56,6 +56,18 @@ final class GameDetailViewModel {
             hasError = true
         }
     }
+    
+    @MainActor
+    func fetchGameDetail(id: Int) async throws {
+        do {
+            let result = try await service.getGameDetail(id: id)
+            guard let game = result.first else { return }
+            self.game = game
+        } catch {
+            self.error = error
+            hasError = true
+        }
+    }
 
     func openURL(urlString: String?) {
         guard let urlString = urlString, let url = URL(string: urlString) else { return }                
