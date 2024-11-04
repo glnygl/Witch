@@ -11,10 +11,6 @@ import CoreData
 struct GameListView: View {
     @State var viewModel: GameListViewModel
     
-    init(viewModel: GameListViewModel) {
-        _viewModel = State(wrappedValue: viewModel)
-    }
-    
     var body: some View {
         NavigationView {
             if viewModel.showLoading {

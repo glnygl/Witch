@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoadingView: View {
     
-    private var text: String
     @State private var loadingIndex = 0
+    private var text: String
     private let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
     
     init(text: String) {
@@ -41,8 +41,4 @@ struct LoadingView: View {
             loadingIndex = (loadingIndex + 1) % 4
         }
     }
-}
-
-#Preview {
-    LoadingView(text: "Loading...")
 }
