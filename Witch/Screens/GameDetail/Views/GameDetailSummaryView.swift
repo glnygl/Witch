@@ -20,7 +20,7 @@ struct GameDetailSummaryView: View {
         }
         .padding(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
         .background(viewModel.showSummary ? .accent.opacity(0.1) : .clear)
-        .shouldHide(viewModel.summary.isEmpty)
+        .hide(viewModel.summary.isEmpty)
         
         if let storyline = viewModel.storyline {
             VStack(alignment: .trailing, spacing: 4){

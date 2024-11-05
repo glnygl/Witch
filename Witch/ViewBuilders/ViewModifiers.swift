@@ -76,11 +76,11 @@ struct EmbedInSection: ViewModifier {
 }
 
 struct HiddenModifier: ViewModifier {
-    let shouldHide: Bool
+    let hide: Bool
 
     @ViewBuilder
     func body(content: Content) -> some View {
-        if shouldHide {
+        if hide {
             content.hidden()
         } else {
             content

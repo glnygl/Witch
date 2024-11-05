@@ -13,7 +13,7 @@ final class MockNetworking: NetworkingProtocol {
     
     var resultToReturn: GameList?
     
-    func request<T, R>(requestable: R, responseType: T.Type) async throws (NetworkError) -> T where T : Decodable, R : URLRequestable {
+    func request<T>(requestable: URLRequestable, responseType: T.Type) async throws(NetworkError) -> T where T : Decodable {
         if let resultToReturn = resultToReturn as? T {
             return resultToReturn
         }

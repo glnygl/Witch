@@ -25,7 +25,7 @@ extension View {
         self.modifier(NavigationBackButtonModifier())
     }
     
-    func shouldHide(_ shouldHide: Bool) -> some View {
-        ModifiedContent(content: self, modifier: HiddenModifier(shouldHide: shouldHide))
+    func hide(_ hide: Bool) -> some View {
+        ModifiedContent(content: self, modifier: HiddenModifier(hide: hide))
     }
 }

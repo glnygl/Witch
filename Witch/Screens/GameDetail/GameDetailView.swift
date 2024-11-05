@@ -24,7 +24,7 @@ struct GameDetailView: View {
                         .foregroundStyle(.primary)
                     SimilarGamesView(games: viewModel.gameList)
                 }
-                .shouldHide(viewModel.gameList.isEmpty)
+                .hide(viewModel.gameList.isEmpty)
                 
             }.toolbar {
                 GameDetailToolBarView()

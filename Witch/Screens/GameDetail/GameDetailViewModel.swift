@@ -37,6 +37,10 @@ final class GameDetailViewModel {
         game.summary ?? ""
     }
     
+    var deeplinkUrl: String {
+        "witchapp://gd/" + "\(game.id)"
+    }
+    
     var hasError: Bool = false
     var error: NetworkError?
     
