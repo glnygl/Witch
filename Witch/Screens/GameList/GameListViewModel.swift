@@ -35,7 +35,7 @@ final class GameListViewModel: GameListViewModelProtocol {
         isRefreshing ? "Refreshing..." : "Loading..."
     }
     
-    init(service: GameListServiceProtocol, persistenceController: CoreDataPersistenceProtocol = PersistenceController.shared) {
+    init(service: GameListServiceProtocol, persistenceController: CoreDataPersistenceProtocol) {
         self.service = service
         self.persistenceController = persistenceController
     }

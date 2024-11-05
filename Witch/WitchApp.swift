@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
-import CoreData
 
 @main
 struct WitchApp: App {
+    
+    let persistentContainer = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
-            GameListView(viewModel: GameListViewModel(service: GameListService()))
+            GameListView(viewModel: GameListViewModel(service: GameListService(), persistenceController: persistentContainer))
                 .onOpenURL { url in
                     print(url)
                 }

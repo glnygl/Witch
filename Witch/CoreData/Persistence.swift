@@ -31,6 +31,7 @@ final class PersistenceController: CoreDataPersistenceProtocol {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
         mainContext = container.viewContext
         backgroundContext = container.newBackgroundContext()
         mainContext.automaticallyMergesChangesFromParent = true
@@ -62,6 +63,8 @@ final class PersistenceController: CoreDataPersistenceProtocol {
     
     func fetchGameList() async -> [Game]? {
         let request: NSFetchRequest<GameListDataModel> = GameListDataModel.fetchRequest()
+        request.fetchLimit = 20 
+        request.fetchBatchSize = 20
         let sortRule = NSSortDescriptor(key: "id", ascending: true)
         request.sortDescriptors = [sortRule]
         do {
