@@ -25,8 +25,8 @@ struct LoadingView: View {
                         Circle()
                             .fill(loadingIndex == index ? .accent : .lilac)
                             .frame(width: 16)
-                            .scaleEffect(loadingIndex == index ? 1.5 : 1.0)
-                            .animation(.easeInOut(duration: 0.2), value: loadingIndex)
+                            .scaleEffect(loadingIndex == index ? 1.6 : 0.8)
+                            .animation(.easeInOut(duration: 0.6), value: loadingIndex)
                     }
                 }
                 Text(text)
