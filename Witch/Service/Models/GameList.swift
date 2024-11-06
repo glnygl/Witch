@@ -18,13 +18,14 @@ struct Game: Codable {
     let rating: Double?
     let similarGameIds: [Int]?
     let videos: [Video]?
+    let slug: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, cover, url, storyline, summary, rating, videos
+        case id, name, cover, url, storyline, summary, rating, videos, slug
         case similarGameIds = "similar_games"
     }
     
-    init(id: Int, name: String?, cover: Cover?, url: String?, storyline: String?, summary: String?, rating: Double?, similarGameIds: [Int]?, videos: [Video]?) {
+    init(id: Int, name: String?, cover: Cover?, url: String?, storyline: String?, summary: String?, rating: Double?, similarGameIds: [Int]?, videos: [Video]?, slug: String?) {
         self.id = id
         self.name = name
         self.cover = cover
@@ -34,6 +35,7 @@ struct Game: Codable {
         self.rating = rating
         self.similarGameIds = similarGameIds
         self.videos = videos
+        self.slug = slug
     }
     
     init(entity: GameListDataModel) {
@@ -45,6 +47,7 @@ struct Game: Codable {
         self.summary = entity.summary
         self.rating = entity.rating
         self.similarGameIds = entity.similarGameIds
+        self.slug = entity.slug
         
         if let videoSet = entity.videos as? Set<VideoDataModel> {
             self.videos = videoSet.map { Video(entity: $0) }

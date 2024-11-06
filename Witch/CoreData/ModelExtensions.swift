@@ -16,6 +16,7 @@ extension GameListDataModel {
         self.storyline = game.storyline
         self.similarGameIds = game.similarGameIds
         self.rating = game.rating ?? 0.0
+        self.slug = game.slug
     }
 }
 

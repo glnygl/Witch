@@ -40,8 +40,13 @@ final class GameDetailViewModel {
     var videoId: String {
         game.videos?.first?.videoId ?? ""
     }
+    
+    var slug: String {
+        game.slug ?? ""
+    }
+    
     var deeplinkUrl: String {
-        "witchapp://gd/" + "\(game.id)"
+        "witchapp://gd/" + "\(slug)/" + "\(game.id)"
     }
     
     var hasError: Bool = false

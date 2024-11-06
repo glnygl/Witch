@@ -14,6 +14,7 @@ enum QueryFields: String {
     case rating
     case similarGameIds = "similar_games"
     case videoIds = "videos.video_id"
+    case slug
 }
 
 struct Condition {
@@ -56,6 +57,14 @@ final class QueryBuilder {
     func addCondition(field: QueryFields, operator: ConditionOperator, value: String) -> QueryBuilder {
         let condition = Condition(field: field, operator: `operator`, value: value)
         conditions.append(condition)
+        return self
+    }
+    
+    func addConditions(fields: [QueryFields], operator: ConditionOperator, value: String) -> QueryBuilder {
+        fields.forEach { field in
+            let condition = Condition(field: field, operator: `operator`, value: value)
+            conditions.append(condition)
+        }
         return self
     }
     

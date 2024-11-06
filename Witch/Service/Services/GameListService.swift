@@ -25,11 +25,8 @@ final class GameListService: GameListServiceProtocol {
         var request = GameListRequest()
         let queryBuilder = QueryBuilder()
         let query = queryBuilder
-            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds, .videoIds])
-            .addCondition(field: .cover, operator: .notEqual, value: "null")
-            .addCondition(field: .storyline, operator: .notEqual, value: "null")
-            .addCondition(field: .id, operator: .notEqual, value: "null")
-            .addCondition(field: .videoIds, operator: .notEqual, value: "null")
+            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds, .videoIds, .slug])
+            .addConditions(fields: [.cover, .storyline, .id, .videoIds, .slug], operator: .notEqual, value: "null")
             .addLimit(20)
             .build()
         request.parameters = query
@@ -43,9 +40,7 @@ final class GameListService: GameListServiceProtocol {
         let query = queryBuilder
             .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
             .addCondition(field: .id, operator: .equal, value: idQueryString)
-            .addCondition(field: .cover, operator: .notEqual, value: "null")
-            .addCondition(field: .storyline, operator: .notEqual, value: "null")
-            .addCondition(field: .id, operator: .notEqual, value: "null")
+            .addConditions(fields: [.cover, .storyline, .id], operator: .notEqual, value: "null")
             .build()
         request.parameters = query
         return try await network.request(requestable: request,responseType: GameList.self)
@@ -56,8 +51,7 @@ final class GameListService: GameListServiceProtocol {
         let queryBuilder = QueryBuilder()
         let query = queryBuilder
             .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
-            .addCondition(field: .cover, operator: .notEqual, value: "null")
-            .addCondition(field: .storyline, operator: .notEqual, value: "null")
+            .addConditions(fields: [.cover, .storyline], operator: .notEqual, value: "null")
             .addCondition(field: .id, operator: .equal, value: "\(id)")
             .build()
         request.parameters = query
