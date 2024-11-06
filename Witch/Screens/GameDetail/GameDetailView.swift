@@ -26,6 +26,10 @@ struct GameDetailView: View {
                 }
                 .hide(viewModel.gameList.isEmpty)
                 
+                YoutubeVideoView(videoId: viewModel.videoId)
+                    .frame(maxWidth: .infinity, idealHeight: 260)
+                    .padding()
+                
             }.toolbar {
                 GameDetailToolBarView()
             }

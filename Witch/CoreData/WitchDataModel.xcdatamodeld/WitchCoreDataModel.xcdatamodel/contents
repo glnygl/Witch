@@ -13,5 +13,11 @@
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="cover" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoverDataModel" inverseName="cover" inverseEntity="CoverDataModel"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoDataModel" inverseName="videos" inverseEntity="VideoDataModel"/>
+    </entity>
+    <entity name="VideoDataModel" representedClassName="VideoDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
+        <relationship name="videos" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameListDataModel" inverseName="videos" inverseEntity="GameListDataModel"/>
     </entity>
 </model>

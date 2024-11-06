@@ -25,10 +25,11 @@ final class GameListService: GameListServiceProtocol {
         var request = GameListRequest()
         let queryBuilder = QueryBuilder()
         let query = queryBuilder
-            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds])
+            .addFields([.id, .name, .cover, .url, .summary, .storyline, .rating, .similarGameIds, .videoIds])
             .addCondition(field: .cover, operator: .notEqual, value: "null")
             .addCondition(field: .storyline, operator: .notEqual, value: "null")
             .addCondition(field: .id, operator: .notEqual, value: "null")
+            .addCondition(field: .videoIds, operator: .notEqual, value: "null")
             .addLimit(20)
             .build()
         request.parameters = query

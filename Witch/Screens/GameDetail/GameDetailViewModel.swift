@@ -37,6 +37,9 @@ final class GameDetailViewModel {
         game.summary ?? ""
     }
     
+    var videoId: String {
+        game.videos?.first?.videoId ?? ""
+    }
     var deeplinkUrl: String {
         "witchapp://gd/" + "\(game.id)"
     }

@@ -13,6 +13,7 @@ enum QueryFields: String {
     case summary
     case rating
     case similarGameIds = "similar_games"
+    case videoIds = "videos.video_id"
 }
 
 struct Condition {

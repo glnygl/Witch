@@ -56,6 +56,11 @@ final class PersistenceController: CoreDataPersistenceProtocol {
                 let coverData = CoverDataModel(context: backgroundContext)
                 coverData.setCover(game: game)
                 gameData.cover = coverData
+                let videoData = VideoDataModel(context: backgroundContext)
+                if let videos = game.videos {
+                    let videoSet = videoData.setVideos(videos: videos)
+                    gameData.videos = videoSet
+                }
             }
             saveBackgroundContext()
         }
