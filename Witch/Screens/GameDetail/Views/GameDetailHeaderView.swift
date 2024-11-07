@@ -26,6 +26,8 @@ struct GameDetailHeaderView: View {
                     }
                 }
                 .cornerRadius(40)
+                .shadow(radius: 20)
+                .shadow(radius: 10)
             }
             Text(viewModel.name)
                 .font(.system(size: 24))

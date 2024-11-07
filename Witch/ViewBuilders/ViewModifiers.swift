@@ -54,13 +54,11 @@ struct NavigationBackButtonModifier: ViewModifier {
         content
             .navigationBarBackButtonHidden(true)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                        }
+                        Image(systemName: "chevron.backward")
                     }
                 }
             }

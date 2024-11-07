@@ -35,10 +35,9 @@ struct GameListItemView: View {
                 Text(game?.summary ?? "")
                     .font(.subheadline)
                     .fontWeight(.thin)
-                Spacer()
             }
+            .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
             .multilineTextAlignment(.leading)
-            Spacer()
         }
         .padding(8)
     }

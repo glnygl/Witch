@@ -10,6 +10,7 @@ import CoreData
 
 struct GameListView: View {
     @State var viewModel: GameListViewModel
+    @AppStorage("appTheme") var appTheme: AppTheme = .light
     
     var body: some View {
         NavigationView {
@@ -45,6 +46,15 @@ struct GameListView: View {
                     }
                 }
                 .navigationTitle("Games")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            appTheme.toggle()
+                        } label: {
+                            Image(systemName: appTheme == .light ? "sun.max" : "moon")
+                        }
+                    }
+                }
             }
         }
         .alert(isPresented: $viewModel.hasError, error: viewModel.error, actions: {

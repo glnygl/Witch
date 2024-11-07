@@ -11,6 +11,7 @@ import SwiftUI
 struct WitchApp: App {
     
     let persistentContainer = PersistenceController.shared
+    @AppStorage("appTheme") var appTheme: AppTheme = .light
     
     var body: some Scene {
         WindowGroup {
@@ -18,6 +19,7 @@ struct WitchApp: App {
                 .onOpenURL { url in
                     print(url)
                 }
+                .preferredColorScheme(appTheme.scheme)
         }
     }
 }
