@@ -11,13 +11,14 @@ import NukeUI
 struct SimilarGamesView: View {
     
     var games: [Game]
+    @Environment(\.gameService) private var service: GameServiceProtocol
     
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(games, id: \.id) { game in
                     NavigationLink {
-                        GameDetailView(viewModel: GameDetailViewModel(service: GameListService(), game: game))
+                        GameDetailView(viewModel: GameDetailViewModel(service: service, game: game))
                             .removeNavigationBackButtonTitle()
                     } label: {
                         if let urlString = game.cover?.url {

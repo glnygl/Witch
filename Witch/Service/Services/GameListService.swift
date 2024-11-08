@@ -6,14 +6,16 @@
 //
 
 import Network
+import SwiftUI
 
-protocol GameListServiceProtocol {
+protocol GameServiceProtocol {
     func getGameList() async throws (NetworkError) -> GameList
     func getSimilarGameList(ids: [Int]) async throws (NetworkError) -> GameList
     func getGameDetail(id: Int) async throws (NetworkError) -> GameList
 }
 
-final class GameListService: GameListServiceProtocol {
+@Observable
+final class GameService: GameServiceProtocol {
     
     private let network: NetworkingProtocol
 

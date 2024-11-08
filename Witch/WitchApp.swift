@@ -11,14 +11,16 @@ import SwiftUI
 struct WitchApp: App {
     
     let persistentContainer = PersistenceController.shared
+    let gameService = GameService()
     @AppStorage("appTheme") var appTheme: AppTheme = .light
     
     var body: some Scene {
         WindowGroup {
-            GameListView(viewModel: GameListViewModel(service: GameListService(), persistenceController: persistentContainer))
+            GameListView(viewModel: GameListViewModel(service: gameService, persistenceController: persistentContainer))
                 .onOpenURL { url in
                     print(url)
                 }
+                .environment(gameService)
                 .preferredColorScheme(appTheme.scheme)
         }
     }

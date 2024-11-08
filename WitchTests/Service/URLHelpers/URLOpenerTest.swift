@@ -11,16 +11,19 @@ import XCTest
 final class URLOpenerTest: XCTestCase {
     
     private var mockOpener: MockURLOpener!
+    private var service: GameServiceProtocol!
     private var game: Game!
     
     override func setUp() {
         super.setUp()
         mockOpener = MockURLOpener()
-        game = Game(id: 1, name: "A", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)
+        service = GameService()
+        game = Game(id: 1, name: "A", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil, videos: nil, slug: nil)
     }
     
     override func tearDown() {
         mockOpener = nil
+        service = nil
         game = nil
         super.tearDown()
     }
@@ -28,7 +31,7 @@ final class URLOpenerTest: XCTestCase {
     func test_canOpenURL_true() {
         
         mockOpener.canOpenURLResult = true
-        let viewModel = GameDetailViewModel(service: GameListService(), game: game, urlOpener: mockOpener)
+        let viewModel = GameDetailViewModel(service: service, game: game, urlOpener: mockOpener)
         
         viewModel.openURL(urlString: "www.google.com")
         
@@ -39,7 +42,7 @@ final class URLOpenerTest: XCTestCase {
     func test_canOpenURL_false() {
         
         mockOpener.canOpenURLResult = false
-        let viewModel = GameDetailViewModel(service: GameListService(), game: game, urlOpener: mockOpener)
+        let viewModel = GameDetailViewModel(service: service, game: game, urlOpener: mockOpener)
         
         viewModel.openURL(urlString: "//")
         

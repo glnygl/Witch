@@ -11,7 +11,7 @@ import XCTest
 final class GameDetailViewModelTests: XCTestCase {
     
     var viewModel: GameDetailViewModel!
-    var mockService: MockGameListService!
+    var mockService: MockGameService!
     var mockURLOpener: MockURLOpener!
     
     var game: Game!
@@ -19,10 +19,10 @@ final class GameDetailViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        mockService = MockGameListService()
+        mockService = MockGameService()
         mockURLOpener = MockURLOpener()
-        game = Game(id: 1, name: "Game", cover: nil, url: "www.google.com", storyline: nil, summary: nil, rating: 94.0, similarGameIds: nil)
-        similarGames = [Game(id: 2, name: "Similar", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)]
+        game = Game(id: 1, name: "Game", cover: nil, url: "www.google.com", storyline: nil, summary: nil, rating: 94.0, similarGameIds: nil, videos: nil, slug: nil)
+        similarGames = [Game(id: 2, name: "Similar", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil, videos: nil, slug: nil)]
         viewModel = GameDetailViewModel(service: mockService, game: game, urlOpener: mockURLOpener)
     }
     
@@ -83,7 +83,7 @@ final class GameDetailViewModelTests: XCTestCase {
      
      func test_convertRating_nil() {
          
-         let game = Game(id: 1, name: "Game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)
+         let game = Game(id: 1, name: "Game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil, videos: nil, slug: nil)
          viewModel = GameDetailViewModel(service: mockService, game: game, urlOpener: mockURLOpener)
          let rating = viewModel.convertStarRating()
          

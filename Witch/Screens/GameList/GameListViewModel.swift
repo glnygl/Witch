@@ -19,7 +19,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     
     var gameList: GameList = []
     
-    let service: GameListServiceProtocol
+    let service: GameServiceProtocol
     private let persistenceController: CoreDataPersistenceProtocol
     
     var isRefreshing: Bool = false
@@ -35,7 +35,7 @@ final class GameListViewModel: GameListViewModelProtocol {
         isRefreshing ? "Refreshing..." : "Loading..."
     }
     
-    init(service: GameListServiceProtocol, persistenceController: CoreDataPersistenceProtocol) {
+    init(service: GameServiceProtocol, persistenceController: CoreDataPersistenceProtocol) {
         self.service = service
         self.persistenceController = persistenceController
     }

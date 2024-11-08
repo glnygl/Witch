@@ -9,4 +9,5 @@ import SwiftUI
 
 extension EnvironmentValues {
     @Entry var appTheme: AppTheme = .light
+    @Entry var gameService: GameServiceProtocol = GameService()
 }

@@ -11,7 +11,7 @@ import XCTest
 final class GameListViewModelTests: XCTestCase {
     
     var viewModel: GameListViewModel!
-    var mockService: MockGameListService!
+    var mockService: MockGameService!
     var mockPersistenceController: MockPersistenceController!
     
     var games: [Game]!
@@ -19,11 +19,11 @@ final class GameListViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        mockService = MockGameListService()
+        mockService = MockGameService()
         mockPersistenceController = MockPersistenceController()
         viewModel = GameListViewModel(service: mockService, persistenceController: mockPersistenceController)
-        games = [Game(id: 1, name: "Game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)]
-        cachedGames = [Game(id: 1, name: "Cached game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil)]
+        games = [Game(id: 1, name: "Game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil, videos: nil, slug: nil)]
+        cachedGames = [Game(id: 1, name: "Cached game", cover: nil, url: nil, storyline: nil, summary: nil, rating: nil, similarGameIds: nil, videos: nil, slug: nil)]
     }
     
     override func tearDown() {

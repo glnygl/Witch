@@ -12,7 +12,7 @@ import Network
 final class GameDetailViewModel {
     
     private let urlOpener: URLOpener
-    private let service: GameListServiceProtocol
+    private let service: GameServiceProtocol
     private let deeplinkManager: DeeplinkManagerProtocol
     
     var gameList: GameList = []
@@ -56,7 +56,7 @@ final class GameDetailViewModel {
     var showSummary = false
     var showMore = false
     
-    init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared, deeplinkManager: DeeplinkManagerProtocol = DeeplinkManager()) {
+    init(service: GameServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared, deeplinkManager: DeeplinkManagerProtocol = DeeplinkManager()) {
         self.service = service
         self.urlOpener = urlOpener
         self.game = game
