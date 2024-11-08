@@ -19,19 +19,11 @@
 			remoteGlobalIDString = 291F87B82CBE71A800D427D5;
 			remoteInfo = Witch;
 		};
-		291F87D92CBE71AA00D427D5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 291F87B12CBE71A800D427D5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 291F87B82CBE71A800D427D5;
-			remoteInfo = Witch;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		291F87B92CBE71A800D427D5 /* Witch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Witch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		291F87CE2CBE71AA00D427D5 /* WitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		291F87D82CBE71AA00D427D5 /* WitchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WitchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,11 +51,6 @@
 			path = WitchTests;
 			sourceTree = "<group>";
 		};
-		291F87DB2CBE71AA00D427D5 /* WitchUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WitchUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,13 +70,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		291F87D52CBE71AA00D427D5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -98,7 +78,6 @@
 			children = (
 				291F87BB2CBE71A800D427D5 /* Witch */,
 				291F87D12CBE71AA00D427D5 /* WitchTests */,
-				291F87DB2CBE71AA00D427D5 /* WitchUITests */,
 				291F881F2CBE98BE00D427D5 /* Frameworks */,
 				291F87BA2CBE71A800D427D5 /* Products */,
 			);
@@ -109,7 +88,6 @@
 			children = (
 				291F87B92CBE71A800D427D5 /* Witch.app */,
 				291F87CE2CBE71AA00D427D5 /* WitchTests.xctest */,
-				291F87D82CBE71AA00D427D5 /* WitchUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,29 +149,6 @@
 			productReference = 291F87CE2CBE71AA00D427D5 /* WitchTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		291F87D72CBE71AA00D427D5 /* WitchUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 291F87E82CBE71AA00D427D5 /* Build configuration list for PBXNativeTarget "WitchUITests" */;
-			buildPhases = (
-				291F87D42CBE71AA00D427D5 /* Sources */,
-				291F87D52CBE71AA00D427D5 /* Frameworks */,
-				291F87D62CBE71AA00D427D5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				291F87DA2CBE71AA00D427D5 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				291F87DB2CBE71AA00D427D5 /* WitchUITests */,
-			);
-			name = WitchUITests;
-			packageProductDependencies = (
-			);
-			productName = WitchUITests;
-			productReference = 291F87D82CBE71AA00D427D5 /* WitchUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -210,10 +165,6 @@
 					291F87CD2CBE71AA00D427D5 = {
 						CreatedOnToolsVersion = 16.0;
 						LastSwiftMigration = 1600;
-						TestTargetID = 291F87B82CBE71A800D427D5;
-					};
-					291F87D72CBE71AA00D427D5 = {
-						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 291F87B82CBE71A800D427D5;
 					};
 				};
@@ -238,7 +189,6 @@
 			targets = (
 				291F87B82CBE71A800D427D5 /* Witch */,
 				291F87CD2CBE71AA00D427D5 /* WitchTests */,
-				291F87D72CBE71AA00D427D5 /* WitchUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -252,13 +202,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		291F87CC2CBE71AA00D427D5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		291F87D62CBE71AA00D427D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,13 +225,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		291F87D42CBE71AA00D427D5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -296,11 +232,6 @@
 			isa = PBXTargetDependency;
 			target = 291F87B82CBE71A800D427D5 /* Witch */;
 			targetProxy = 291F87CF2CBE71AA00D427D5 /* PBXContainerItemProxy */;
-		};
-		291F87DA2CBE71AA00D427D5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 291F87B82CBE71A800D427D5 /* Witch */;
-			targetProxy = 291F87D92CBE71AA00D427D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -525,40 +456,6 @@
 			};
 			name = Release;
 		};
-		291F87E92CBE71AA00D427D5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SS69B87VMV;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glnygl.WitchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Witch;
-			};
-			name = Debug;
-		};
-		291F87EA2CBE71AA00D427D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SS69B87VMV;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glnygl.WitchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Witch;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -585,15 +482,6 @@
 			buildConfigurations = (
 				291F87E62CBE71AA00D427D5 /* Debug */,
 				291F87E72CBE71AA00D427D5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		291F87E82CBE71AA00D427D5 /* Build configuration list for PBXNativeTarget "WitchUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				291F87E92CBE71AA00D427D5 /* Debug */,
-				291F87EA2CBE71AA00D427D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

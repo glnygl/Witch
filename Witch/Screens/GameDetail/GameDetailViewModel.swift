@@ -18,33 +18,13 @@ final class GameDetailViewModel {
     var gameList: GameList = []
     var game: Game
     
-    var name: String {
-        game.name ?? ""
-    }
-    
-    var url: String {
-        game.url ?? ""
-    }
-    
-    var coverUrl: String? {
-        game.cover?.url
-    }
-    
-    var storyline: String? {
-        game.storyline 
-    }
-    
-    var summary: String {
-        game.summary ?? ""
-    }
-    
-    var videoId: String {
-        game.videos?.first?.videoId ?? ""
-    }
-    
-    var slug: String {
-        game.slug ?? ""
-    }
+    var name: String { game.name ?? "" }
+    var url: String { game.url ?? "" }
+    var coverUrl: String? { game.cover?.url }
+    var storyline: String? { game.storyline }
+    var summary: String { game.summary ?? "" }
+    var videoId: String { game.videos?.first?.videoId ?? "" }
+    var slug: String { game.slug ?? "" }
     
     var deeplinkUrl: URL {
         deeplinkManager.url(host: .gameDetail, path: slug, queryItems: ["id": "\(game.id)"])
