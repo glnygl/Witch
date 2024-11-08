@@ -18,7 +18,7 @@ struct GameDetailToolBarView: ToolbarContent {
                     viewModel.openURL(urlString: viewModel.url)
                 }
                 .hide((viewModel.url.isEmpty))
-                ShareLink(item: viewModel.deeplinkUrl) {
+                ShareLink(item: viewModel.deeplinkUrl.absoluteString) {
                     Image(systemName: "square.and.arrow.up")
                 }
             }

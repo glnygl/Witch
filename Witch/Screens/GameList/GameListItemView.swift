@@ -38,6 +38,7 @@ struct GameListItemView: View {
             }
             .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
             .multilineTextAlignment(.leading)
+            Spacer()
         }
         .padding(8)
     }

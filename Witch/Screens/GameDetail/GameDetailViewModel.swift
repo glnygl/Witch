@@ -13,6 +13,7 @@ final class GameDetailViewModel {
     
     private let urlOpener: URLOpener
     private let service: GameListServiceProtocol
+    private let deeplinkManager: DeeplinkManagerProtocol
     
     var gameList: GameList = []
     var game: Game
@@ -45,8 +46,8 @@ final class GameDetailViewModel {
         game.slug ?? ""
     }
     
-    var deeplinkUrl: String {
-        "witchapp://gd/" + "\(slug)/" + "\(game.id)"
+    var deeplinkUrl: URL {
+        deeplinkManager.url(host: .gameDetail, path: slug, queryItems: ["id": "\(game.id)"])
     }
     
     var hasError: Bool = false
@@ -55,10 +56,11 @@ final class GameDetailViewModel {
     var showSummary = false
     var showMore = false
     
-    init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared) {
+    init(service: GameListServiceProtocol, game: Game, urlOpener: URLOpener = UIApplication.shared, deeplinkManager: DeeplinkManagerProtocol = DeeplinkManager()) {
         self.service = service
         self.urlOpener = urlOpener
         self.game = game
+        self.deeplinkManager = deeplinkManager
     }
     
     @MainActor
