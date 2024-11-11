@@ -20,7 +20,7 @@ struct WitchApp: App {
                 .onOpenURL { url in
                     print(url)
                 }
-                .environment(gameService)
+                .environment(\.gameService, gameService)
                 .preferredColorScheme(appTheme.scheme)
         }
     }
