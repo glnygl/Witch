@@ -57,7 +57,7 @@ struct GameListView: View {
                 }
             }
         }
-        .alert(isPresented: $viewModel.hasError, error: viewModel.error, actions: {
+        .alert(isPresented: .constant(viewModel.error != nil), error: viewModel.error, actions: {
             Button("Ok") { }
         })
         .onViewDidLoad {

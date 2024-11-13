@@ -29,8 +29,7 @@ final class GameDetailViewModel {
     var deeplinkUrl: URL {
         deeplinkManager.url(host: .gameDetail, path: slug, queryItems: ["id": "\(game.id)"])
     }
-    
-    var hasError: Bool = false
+
     var error: NetworkError?
     
     var showSummary = false
@@ -50,7 +49,6 @@ final class GameDetailViewModel {
             self.gameList = result
         } catch {
             self.error = error
-            hasError = true
         }
     }
     
@@ -62,7 +60,6 @@ final class GameDetailViewModel {
             self.game = game
         } catch {
             self.error = error
-            hasError = true
         }
     }
 

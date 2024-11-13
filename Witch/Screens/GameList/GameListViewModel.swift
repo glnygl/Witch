@@ -23,8 +23,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     private let persistenceController: CoreDataPersistenceProtocol
     
     var isRefreshing: Bool = false
-    
-    var hasError: Bool = false
+
     var error: NetworkError?
     
     var showLoading: Bool {
@@ -48,7 +47,6 @@ final class GameListViewModel: GameListViewModelProtocol {
             return games
         } catch {
             self.error = error
-            hasError = true
             return nil
         }
     }
