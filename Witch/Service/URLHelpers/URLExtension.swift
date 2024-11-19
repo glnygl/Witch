@@ -20,8 +20,8 @@ extension URLRequestable {
     
     public var headers: [String: String] {
         [
-            "Client-ID" : "ctgyj1u5eoe8ynxsoi0anhpctz1oo6",
-            "Authorization" : "Bearer iawmqtbgk5h47jjglcn4v7sofkue9v"
+            "Client-ID" : "d1gbjxwol6uv96w49juek9ow5lv2vt",
+            "Authorization" : "Bearer khm0oegwmz7kew5y1rbwyk4litdu5z"  
         ]
     }
     public var parameters: String? {
