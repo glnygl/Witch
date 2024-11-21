@@ -7,10 +7,12 @@
 
 import SwiftUI
 import CoreData
+import Coordinator
 
 struct GameListView: View {
     @State var viewModel: GameListViewModel
     @AppStorage("appTheme") var appTheme: AppTheme = .light
+    @Environment(Coordinator<AppRoutes>.self) private var appCoordinator
     
     var body: some View {
         NavigationView {
@@ -26,9 +28,8 @@ struct GameListView: View {
                             )
                             .cornerRadius(20)
                             .frame(height: 160)
-                            .navigationLink {
-                                GameDetailView(viewModel: GameDetailViewModel(service: viewModel.service, game: game))
-                                    .removeNavigationBackButtonTitle()
+                            .onTapGesture {
+                                appCoordinator.push(page: .gameDetail(game: game))
                             }
                     }
                     .plainList()

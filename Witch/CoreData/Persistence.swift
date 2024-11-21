@@ -12,6 +12,7 @@ protocol CoreDataPersistenceProtocol {
     func fetchGameList() async -> [Game]?
 }
 
+@Observable
 final class PersistenceController: CoreDataPersistenceProtocol {
     static let shared = PersistenceController()
     

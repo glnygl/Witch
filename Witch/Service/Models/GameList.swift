@@ -7,7 +7,7 @@
 
 typealias GameList = [Game]
 
-struct Game: Codable {
+struct Game: Codable, Hashable {
     
     let id: Int
     let name: String?
@@ -55,9 +55,14 @@ struct Game: Codable {
             self.videos = nil
         }
     }
+    
+    static func == (lhs: Game, rhs: Game) -> Bool {
+        lhs.id == rhs.id
+    }
+    
 }
 
-struct Cover: Codable {
+struct Cover: Codable, Hashable {
     let url: String?
     
     init(entity: CoverDataModel?) {
@@ -65,7 +70,7 @@ struct Cover: Codable {
     }
 }
 
-struct Video: Codable {
+struct Video: Codable, Hashable  {
     let id: Int
     let videoId: String?
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290F1EC42CED51C90066397F /* Coordinator in Frameworks */ = {isa = PBXBuildFile; productRef = 290F1EC32CED51C90066397F /* Coordinator */; };
 		291F88212CBE98BE00D427D5 /* Network in Frameworks */ = {isa = PBXBuildFile; productRef = 291F88202CBE98BE00D427D5 /* Network */; };
 		291F8CE32CCA8A2F00D427D5 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 291F8CE22CCA8A2F00D427D5 /* NukeUI */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				290F1EC42CED51C90066397F /* Coordinator in Frameworks */,
 				291F8CE32CCA8A2F00D427D5 /* NukeUI in Frameworks */,
 				291F88212CBE98BE00D427D5 /* Network in Frameworks */,
 			);
@@ -121,6 +123,7 @@
 			packageProductDependencies = (
 				291F88202CBE98BE00D427D5 /* Network */,
 				291F8CE22CCA8A2F00D427D5 /* NukeUI */,
+				290F1EC32CED51C90066397F /* Coordinator */,
 			);
 			productName = Witch;
 			productReference = 291F87B92CBE71A800D427D5 /* Witch.app */;
@@ -500,6 +503,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		290F1EC32CED51C90066397F /* Coordinator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Coordinator;
+		};
 		291F88202CBE98BE00D427D5 /* Network */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Network;

@@ -16,11 +16,12 @@ struct WitchApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GameListView(viewModel: GameListViewModel(service: gameService, persistenceController: persistentContainer))
+            WitchAppStack(root: AppRoutes.gameList)
                 .onOpenURL { url in
                     print(url)
                 }
                 .environment(\.gameService, gameService)
+                .environment(persistentContainer)
                 .preferredColorScheme(appTheme.scheme)
         }
     }
