@@ -4,7 +4,7 @@
 
 ## Branches
 - mvvm
-- mvvm-c
+- mvvm-c (Coordinator Pattern)
 
 ## Requirements
 - iOS 18.0+
