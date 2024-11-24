@@ -2,11 +2,15 @@
 
 ![](https://github.com/glnygl/Witch/blob/main/AppGif.gif)  
 
+## Branches
+- mvvm
+- mvvm-c (Coordinator Pattern)
+
 ## Requirements
 - iOS 18.0+
 
 ## Architecture
-- MVVM 
+- MVVM / MVVM-C
 
 ## Features
 - List Games
