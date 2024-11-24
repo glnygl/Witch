@@ -12,14 +12,14 @@ enum AppRoutes: Routable, Hashable {
     
     var id: UUID { UUID() }
     case gameList
-    case gameDetail(game: Game)
+    case gameDetail(dependencies: GameDetailDependencies)
     
     var body: some View {
         switch self {
         case .gameList:
             GameListCoordinatorView()
-        case .gameDetail(let game):
-            GameDetailCoordinatorView(game: game)
+        case .gameDetail(let dependencies):
+            GameDetailCoordinatorView(dependencies: dependencies)
         }
     }
     

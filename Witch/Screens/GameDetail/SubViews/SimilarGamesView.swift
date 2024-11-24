@@ -32,7 +32,7 @@ struct SimilarGamesView: View {
                                     .frame(width: 100)
                             }
                         }.onTapGesture {
-                            appCoordinator.push(page: .gameDetail(game: game))
+                            appCoordinator.push(page: .gameDetail(dependencies: GameDetailDependencies(game: game)))
                         }
                     }
                 }

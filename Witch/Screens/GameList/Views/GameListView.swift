@@ -29,7 +29,7 @@ struct GameListView: View {
                             .cornerRadius(20)
                             .frame(height: 160)
                             .onTapGesture {
-                                appCoordinator.push(page: .gameDetail(game: game))
+                                appCoordinator.push(page: .gameDetail(dependencies: GameDetailDependencies(game: game)))
                             }
                     }
                     .plainList()
