@@ -27,20 +27,12 @@ struct RatingView: View {
                             .aspectRatio(contentMode: .fit)
                     }
                 }
-                .clipShape(
-                    ClipShape(width: (reader.size.width / CGFloat(5)) * CGFloat(rating))
-                )
+                .mask(alignment: .leading) {
+                    Rectangle()
+                        .frame(width: (reader.size.width / CGFloat(5)) * CGFloat(rating))
+                }
             }
         )
-    }
-}
-
-struct ClipShape: Shape {
-    
-    let width: Double
-    
-    func path(in rect: CGRect) -> Path {
-        Path(CGRect(x: rect.minX, y: rect.minY, width: width, height: rect.height))
     }
 }
 
